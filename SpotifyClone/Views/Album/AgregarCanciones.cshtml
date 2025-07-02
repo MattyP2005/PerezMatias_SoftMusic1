@@ -1,0 +1,20 @@
+﻿@model SpotifyClone.Models.Album
+@{
+    var canciones = (List<SpotifyClone.Models.Cancion>)ViewBag.CancionesDisponibles;
+}
+
+<h2>Agregar canciones a @Model.Titulo</h2>
+
+<form asp-action="AgregarCanciones" method="post">
+    <input type="hidden" name="albumId" value="@Model.Id" />
+
+    @foreach (var c in canciones)
+    {
+        <div class="form-check">
+            <input type="checkbox" name="cancionesSeleccionadas" value="@c.Id" class="form-check-input" />
+            <label class="form-check-label">@c.Titulo (@c.Genero)</label>
+        </div>
+    }
+
+    <button class="btn btn-primary mt-3">Agregar</button>
+</form>

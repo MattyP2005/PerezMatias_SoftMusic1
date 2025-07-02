@@ -1,0 +1,362 @@
+[
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.ArtistaApiController",
+    "Method": "GetArtistas",
+    "RelativePath": "api/ArtistaApi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.ArtistaApiController",
+    "Method": "CrearArtista",
+    "RelativePath": "api/ArtistaApi",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "Id",
+        "Type": "System.Int32",
+        "IsRequired": false
+      },
+      {
+        "Name": "Nombre",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "PortadaUrl",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Biografia",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Pais",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Canciones",
+        "Type": "System.Collections.Generic.ICollection\u00601[[SpotifyClone.Models.Cancion, SpotifyClone, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "Albums",
+        "Type": "System.Collections.Generic.ICollection\u00601[[SpotifyClone.Models.Album, SpotifyClone, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "IsRequired": false
+      },
+      {
+        "Name": "portada",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.ArtistaApiController",
+    "Method": "GetArtista",
+    "RelativePath": "api/ArtistaApi/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.ArtistaApiController",
+    "Method": "EditarArtista",
+    "RelativePath": "api/ArtistaApi/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "artista",
+        "Type": "SpotifyClone.Models.Artista",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.ArtistaApiController",
+    "Method": "EliminarArtista",
+    "RelativePath": "api/ArtistaApi/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.CancionApiController",
+    "Method": "ObtenerCanciones",
+    "RelativePath": "api/CancionApi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.CancionApiController",
+    "Method": "SubirCancion",
+    "RelativePath": "api/CancionApi",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "SpotifyClone.Models.DTOs.CreateCancionDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.CancionApiController",
+    "Method": "EliminarCancion",
+    "RelativePath": "api/CancionApi/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.CancionApiController",
+    "Method": "DescargarCancion",
+    "RelativePath": "api/CancionApi/descargar/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.HistorialApiController",
+    "Method": "VerHistorial",
+    "RelativePath": "api/HistorialApi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.HistorialApiController",
+    "Method": "RegistrarReproduccion",
+    "RelativePath": "api/HistorialApi/{cancionId}",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cancionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.PlaylistApiController",
+    "Method": "CrearPlaylist",
+    "RelativePath": "api/PlaylistApi",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "nombre",
+        "Type": "System.String",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.PlaylistApiController",
+    "Method": "ObtenerPlaylists",
+    "RelativePath": "api/PlaylistApi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.PlaylistApiController",
+    "Method": "AgregarCancion",
+    "RelativePath": "api/PlaylistApi/{playlistId}/agregar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "playlistId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "cancionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.PlaylistApiController",
+    "Method": "QuitarCancion",
+    "RelativePath": "api/PlaylistApi/{playlistId}/quitar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "playlistId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "cancionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.ReproduccionApiController",
+    "Method": "ObtenerSiguienteCancion",
+    "RelativePath": "api/ReproduccionApi/siguiente/{cancionId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "cancionId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.UsuarioApiController",
+    "Method": "ObtenerUsuarios",
+    "RelativePath": "api/UsuarioApi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.UsuarioApiController",
+    "Method": "CrearUsuario",
+    "RelativePath": "api/UsuarioApi",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "SpotifyClone.Models.DTOs.CreateUsuarioDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.UsuarioApiController",
+    "Method": "EliminarUsuario",
+    "RelativePath": "api/UsuarioApi/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.UsuarioApiController",
+    "Method": "Login",
+    "RelativePath": "api/UsuarioApi/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "login",
+        "Type": "SpotifyClone.Controllers.Api.UsuarioApiController\u002BLoginDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.UsuarioApiController",
+    "Method": "VerPlan",
+    "RelativePath": "api/UsuarioApi/plan",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.UsuarioApiController",
+    "Method": "VerSoloAutenticados",
+    "RelativePath": "api/UsuarioApi/protegido",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

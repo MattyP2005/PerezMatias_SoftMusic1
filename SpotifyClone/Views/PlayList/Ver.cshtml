@@ -1,0 +1,52 @@
+﻿@model SpotifyClone.Models.Playlist
+
+<h2>@Model.Nombre</h2>
+
+@if (!Model.Canciones.Any())
+{
+    <p>Playlist vacía.</p>
+}
+else
+{
+    <button id="btnReproducirTodo" class="btn btn-success mb-3">▶️ Reproducir todo</button>
+
+    <ul id="listaCanciones">
+        @for (int i = 0; i < Model.Canciones.Count; i++)
+        {
+            var cancion = Model.Canciones.ElementAt(i).Cancion;
+            <li class="mb-3" data-index="@i">
+                <strong>@cancion.Titulo</strong> - @cancion.Genero <br />
+                <audio controls src="@cancion.Url" preload="none" style="width: 100%;" data-index="@i"></audio>
+            </li>
+        }
+    </ul>
+}
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const audios = document.querySelectorAll("audio");
+
+            // Reproducir automáticamente la siguiente cuando termine
+            audios.forEach((audio, index) => {
+                audio.addEventListener("ended", () => {
+                    const next = audios[index + 1];
+                    if (next) {
+                        next.play();
+                        next.scrollIntoView({ behavior: "smooth", block: "center" });
+                    }
+                });
+            });
+
+            // ▶️ Botón: Reproducir todo desde el principio
+            const btn = document.getElementById("btnReproducirTodo");
+            if (btn && audios.length > 0) {
+                btn.addEventListener("click", function () {
+                    audios.forEach(a => a.pause()); // por si uno estaba sonando
+                    audios[0].play();
+                    audios[0].scrollIntoView({ behavior: "smooth", block: "center" });
+                });
+            }
+        });
+    </script>
+}

@@ -1,0 +1,109 @@
+is_global = true
+build_property.TargetFramework = net8.0
+build_property.TargetFramework = net8.0
+build_property.TargetPlatformMinVersion = 
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = SpotifyClone
+build_property.RootNamespace = SpotifyClone
+build_property.ProjectDir = C:\Important\Universidad\3er Nivel\HERRAMIENTAS DE PROGRAMACION\ProyectoFinal_SpotifySimulator\SpotifyClone\
+build_property.EnableComHosting = 
+build_property.EnableGeneratedComInterfaceComImportInterop = 
+build_property.RazorLangVersion = 8.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = C:\Important\Universidad\3er Nivel\HERRAMIENTAS DE PROGRAMACION\ProyectoFinal_SpotifySimulator\SpotifyClone
+build_property._RazorSourceGeneratorDebug = 
+build_property.EffectiveAnalysisLevelStyle = 8.0
+build_property.EnableCodeStyleSeverity = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/Album/AgregarCanciones.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cQWdyZWdhckNhbmNpb25lcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/Album/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cQ3JlYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/Album/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/Album/Ver.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWxidW1cVmVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/Artista/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aXN0YVxDcmVhdGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/Artista/SubirPortada.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQXJ0aXN0YVxTdWJpclBvcnRhZGEuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/Cancion/MisCanciones.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FuY2lvblxNaXNDYW5jaW9uZXMuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/Cancion/Subir.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ2FuY2lvblxTdWJpci5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/Home/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/Home/Privacy.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/PlayList/AgregarCanciones.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheUxpc3RcQWdyZWdhckNhbmNpb25lcy5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/PlayList/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheUxpc3RcQ3JlYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/PlayList/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheUxpc3RcSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/PlayList/Ver.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUGxheUxpc3RcVmVyLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/Shared/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/Shared/_ValidationScriptsPartial.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/Usuario/MiPerfil.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVXN1YXJpb1xNaVBlcmZpbC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/_ViewImports.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/_ViewStart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Important/Universidad/3er Nivel/HERRAMIENTAS DE PROGRAMACION/ProyectoFinal_SpotifySimulator/SpotifyClone/Views/Shared/_Layout.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = b-v4b5hrbq9u

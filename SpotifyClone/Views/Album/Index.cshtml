@@ -1,0 +1,13 @@
+﻿@model List<SpotifyClone.Models.Album>
+
+<h2>Mis Álbumes</h2>
+<a href="/Album/Crear" class="btn btn-primary mb-3">Nuevo Álbum</a>
+
+@foreach (var a in Model)
+{
+    <div class="card mb-2 p-3">
+        <h4>@a.Titulo (@a.FechaLanzamiento.ToShortDateString())</h4>
+        <a href="/Album/Ver/@a.Id" class="btn btn-outline-success btn-sm">Ver</a>
+        <a href="/Album/AgregarCanciones/@a.Id" class="btn btn-outline-primary btn-sm">Agregar canciones</a>
+    </div>
+}

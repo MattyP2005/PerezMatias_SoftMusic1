@@ -1,0 +1,24 @@
+﻿@model SpotifyClone.Models.Usuario
+@{
+    ViewData["Title"] = "Mi Perfil";
+}
+
+<h2>@Model.Email</h2>
+<p>Rol: @Model.Rol</p>
+<p>Plan: @Model.Plan</p>
+
+<h4>Formas de Pago</h4>
+<ul>
+    @foreach (var f in Model.FormasPago)
+    {
+        <li>@f.Tipo - @f.Detalles</li>
+    }
+</ul>
+
+<h4>Playlists</h4>
+<ul>
+    @foreach (var p in Model.Playlists)
+    {
+        <li>@p.Nombre (@p.FechaCreacion.ToShortDateString())</li>
+    }
+</ul>

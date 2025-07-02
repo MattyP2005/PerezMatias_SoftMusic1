@@ -1,0 +1,21 @@
+﻿@model List<SpotifyClone.Models.Playlist>
+
+<h2>🎧 Mis Playlists</h2>
+<a href="/Playlist/Crear" class="btn btn-primary mb-3">Nueva Playlist</a>
+
+<ul>
+    @foreach (var p in Model)
+    {
+        <li>
+            <strong>@p.Nombre</strong> -
+            <a href="/Playlist/Ver/@p.Id">Ver</a> |
+            <a href="/Playlist/AgregarCanciones/@p.Id">Agregar canciones</a>
+        </li>
+
+        <form asp-action="Eliminar" method="post" style="display:inline">
+        <input type="hidden" name="id" value="@p.Id" />
+        <button class="btn btn-danger btn-sm" onclick="return confirm('¿Eliminar esta playlist?')">Eliminar</button>
+        </form>
+    }
+</ul>
+
