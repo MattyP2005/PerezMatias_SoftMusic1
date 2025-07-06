@@ -52,6 +52,21 @@ namespace SpotifyClone.Migrations
                     b.ToTable("Albums");
                 });
 
+            modelBuilder.Entity("SpotifyClone.Models.AlbumCancion", b =>
+                {
+                    b.Property<int>("AlbumId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CancionId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AlbumId", "CancionId");
+
+                    b.HasIndex("CancionId");
+
+                    b.ToTable("AlbumCanciones");
+                });
+
             modelBuilder.Entity("SpotifyClone.Models.Artista", b =>
                 {
                     b.Property<int>("Id")
@@ -285,12 +300,30 @@ namespace SpotifyClone.Migrations
                     b.Navigation("Artista");
                 });
 
+            modelBuilder.Entity("SpotifyClone.Models.AlbumCancion", b =>
+                {
+                    b.HasOne("SpotifyClone.Models.Album", "Album")
+                        .WithMany("AlbumCanciones")
+                        .HasForeignKey("AlbumId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("SpotifyClone.Models.Cancion", "Cancion")
+                        .WithMany("AlbumCanciones")
+                        .HasForeignKey("CancionId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Album");
+
+                    b.Navigation("Cancion");
+                });
+
             modelBuilder.Entity("SpotifyClone.Models.Cancion", b =>
                 {
                     b.HasOne("SpotifyClone.Models.Album", "Album")
-                        .WithMany("Canciones")
-                        .HasForeignKey("AlbumId")
-                        .OnDelete(DeleteBehavior.Restrict);
+                        .WithMany()
+                        .HasForeignKey("AlbumId");
 
                     b.HasOne("SpotifyClone.Models.Artista", "Artista")
                         .WithMany("Canciones")
@@ -389,7 +422,7 @@ namespace SpotifyClone.Migrations
 
             modelBuilder.Entity("SpotifyClone.Models.Album", b =>
                 {
-                    b.Navigation("Canciones");
+                    b.Navigation("AlbumCanciones");
                 });
 
             modelBuilder.Entity("SpotifyClone.Models.Artista", b =>
@@ -401,6 +434,8 @@ namespace SpotifyClone.Migrations
 
             modelBuilder.Entity("SpotifyClone.Models.Cancion", b =>
                 {
+                    b.Navigation("AlbumCanciones");
+
                     b.Navigation("PlaylistCanciones");
                 });
 

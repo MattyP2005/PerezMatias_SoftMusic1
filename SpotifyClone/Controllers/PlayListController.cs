@@ -6,7 +6,7 @@ using SpotifyClone.Models;
 
 namespace SpotifyClone.Controllers
 {
-    [Authorize]
+    //[Authorize]
 
     public class PlayListController : Controller
     {
@@ -20,15 +20,11 @@ namespace SpotifyClone.Controllers
         // GET: Playlists
         public IActionResult Index()
         {
-            var email = User.Identity?.Name;
-            var usuario = _context.Usuarios.Include(u => u.Playlists).FirstOrDefault(u => u.Email == email);
-
-            if (usuario == null)
-                return Unauthorized();
-
             var playlists = _context.Playlists
-                .Where(p => p.UsuarioId == usuario.Id)
+                .Include(p => p.Usuario)
                 .Include(p => p.Canciones)
+                    .ThenInclude(pc => pc.Cancion)
+                        .ThenInclude(c => c.Artista) 
                 .ToList();
 
             return View(playlists);

@@ -18,6 +18,6 @@ namespace SpotifyClone.Models
         public Artista Artista { get; set; }
 
         // Canciones que contiene el álbum
-        public ICollection<Cancion> Canciones { get; set; }
+        public ICollection<AlbumCancion> AlbumCanciones { get; set; }
     }
 }

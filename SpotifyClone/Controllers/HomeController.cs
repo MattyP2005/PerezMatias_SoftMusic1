@@ -17,14 +17,16 @@ namespace SpotifyClone.Controllers
         public IActionResult Index()
         {
             var cancionesSueltas = _context.Canciones
-                    .Include(c => c.Artista)
-                    .Where(c => c.AlbumId == null) // ? canciones que no están en ningún álbum
-                    .ToList();
+                .Include(c => c.Artista)
+                .Where(c => !_context.AlbumCanciones.Any(ac => ac.CancionId == c.Id))
+                .ToList();
+
             var model = new HomeViewModel
             {
                 Albums = _context.Albums
-                    .Include(a => a.Canciones)
-                    .ThenInclude(c => c.Artista)
+                    .Include(a => a.AlbumCanciones)
+                        .ThenInclude(ac => ac.Cancion)
+                            .ThenInclude(c => c.Artista)
                     .ToList(),
 
                 PlaylistsPublicas = _context.Playlists

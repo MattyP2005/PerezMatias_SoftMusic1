@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SpotifyClone.Data;
 using SpotifyClone.Models;
+using SpotifyClone.Models.ViewModels;
 
 namespace SpotifyClone.Controllers
 {
-    [Authorize(Roles = "Artista,Admin")]
+    //[Authorize(Roles = "Artista,Admin")]
 
     public class AlbumController : Controller
     {
@@ -19,13 +20,11 @@ namespace SpotifyClone.Controllers
 
         public IActionResult Index()
         {
-            var email = User.Identity?.Name;
-            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == email);
-            if (usuario == null) return Unauthorized();
-
             var albums = _context.Albums
-                .Where(a => a.ArtistaId == usuario.Id)
-                .Include(a => a.Canciones)
+                .Include(a => a.AlbumCanciones)
+                    .ThenInclude(ac => ac.Cancion)
+                        .ThenInclude(c => c.Artista) 
+                .Include(a => a.Artista)
                 .ToList();
 
             return View(albums);
@@ -60,8 +59,9 @@ namespace SpotifyClone.Controllers
         public IActionResult Ver(int id)
         {
             var album = _context.Albums
-                .Include(a => a.Canciones)
-                .ThenInclude(c => c.Artista)
+                .Include(a => a.AlbumCanciones)
+                .ThenInclude(ac => ac.Cancion)
+                    .ThenInclude(c => c.Artista)
                 .FirstOrDefault(a => a.Id == id);
 
             if (album == null)
@@ -70,36 +70,57 @@ namespace SpotifyClone.Controllers
             return View(album);
         }
 
-        [HttpGet]
+        // GET: Album/AgregarCanciones/5
         public IActionResult AgregarCanciones(int id)
         {
             var album = _context.Albums.Find(id);
             if (album == null) return NotFound();
 
-            ViewBag.CancionesDisponibles = _context.Canciones
-                .Where(c => c.AlbumId == null)
-                .ToList();
+            var canciones = _context.Canciones.ToList();
 
-            return View(album);
+            var viewModel = new AgregarCancionAlbumViewModel
+            {
+                AlbumId = album.Id,
+                AlbumTitulo = album.Titulo,
+                Canciones = canciones.Select(c => new CancionSeleccionada
+                {
+                    CancionId = c.Id,
+                    Titulo = c.Titulo,
+                    Seleccionada = false
+                }).ToList()
+            };
+
+            return View(viewModel);
         }
 
+        // POST: Album/AgregarCanciones
         [HttpPost]
-        public IActionResult AgregarCanciones(int albumId, int[] cancionesSeleccionadas)
+        public IActionResult AgregarCanciones(AgregarCancionAlbumViewModel model)
         {
-            var album = _context.Albums.Find(albumId);
+            var album = _context.Albums
+                .Include(a => a.AlbumCanciones)
+                .FirstOrDefault(a => a.Id == model.AlbumId);
+
             if (album == null) return NotFound();
 
-            foreach (var cancionId in cancionesSeleccionadas)
+            foreach (var c in model.Canciones.Where(c => c.Seleccionada))
             {
-                var cancion = _context.Canciones.Find(cancionId);
-                if (cancion != null)
+                var yaExiste = _context.AlbumCanciones
+                    .Any(ac => ac.AlbumId == album.Id && ac.CancionId == c.CancionId);
+
+                if (!yaExiste)
                 {
-                    cancion.AlbumId = albumId;
+                    _context.AlbumCanciones.Add(new AlbumCancion
+                    {
+                        AlbumId = album.Id,
+                        CancionId = c.CancionId
+                    });
                 }
             }
 
             _context.SaveChanges();
-            return RedirectToAction("Ver", new { id = albumId });
+            return RedirectToAction("Index");
         }
+
     }
 }

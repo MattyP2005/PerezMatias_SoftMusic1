@@ -606,12 +606,32 @@
           "artista": {
             "$ref": "#/components/schemas/Artista"
           },
-          "canciones": {
+          "albumCanciones": {
             "type": "array",
             "items": {
-              "$ref": "#/components/schemas/Cancion"
+              "$ref": "#/components/schemas/AlbumCancion"
             },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AlbumCancion": {
+        "type": "object",
+        "properties": {
+          "albumId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "album": {
+            "$ref": "#/components/schemas/Album"
+          },
+          "cancionId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "cancion": {
+            "$ref": "#/components/schemas/Cancion"
           }
         },
         "additionalProperties": false
@@ -707,6 +727,13 @@
           },
           "album": {
             "$ref": "#/components/schemas/Album"
+          },
+          "albumCanciones": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AlbumCancion"
+            },
+            "nullable": true
           },
           "playlistCanciones": {
             "type": "array",

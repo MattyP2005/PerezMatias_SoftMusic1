@@ -1,21 +1,27 @@
 ﻿@model SpotifyClone.Models.Album
 
-<h2>@Model.Titulo</h2>
-<p><strong>Lanzamiento:</strong> @Model.FechaLanzamiento.ToShortDateString()</p>
-
-@if (!Model.Canciones.Any())
-{
-    <p>Este álbum no tiene canciones.</p>
+@{
+    ViewData["Title"] = "Detalle del Álbum";
 }
-else
+
+<h2>@Model.Titulo</h2>
+
+<h3>Canciones en el álbum</h3>
+
+@if (Model.AlbumCanciones != null && Model.AlbumCanciones.Any())
 {
     <ul>
-        @foreach (var c in Model.Canciones)
+        @foreach (var ac in Model.AlbumCanciones)
         {
             <li>
-                <strong>@c.Titulo</strong> - @c.Genero
-                <audio controls src="@c.Url" style="width: 100%;"></audio>
+                <strong>@ac.Cancion.Titulo</strong> - Artista: @ac.Cancion.Artista?.Nombre
             </li>
         }
     </ul>
 }
+else
+{
+    <p>No hay canciones asociadas a este álbum.</p>
+}
+
+<a href="@Url.Action("Index", "Album")" class="btn btn-secondary">Volver a la lista</a>

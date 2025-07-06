@@ -5,25 +5,25 @@
 @foreach (var album in Model.Albums)
 {
     <div class="card mb-4 shadow-sm p-3">
-        @if (album.Canciones.Any() && album.Canciones.First().Artista?.PortadaUrl != null)
+        @if (album.AlbumCanciones.Any() && album.AlbumCanciones.First().Cancion?.Artista?.PortadaUrl != null)
         {
-            <img src="@album.Canciones.First().Artista.PortadaUrl" alt="Portada" class="img-thumbnail mb-3" style="max-width: 200px;" />
+            <img src="@album.AlbumCanciones.First().Cancion.Artista.PortadaUrl" alt="Portada" class="img-thumbnail mb-3" style="max-width: 200px;" />
         }
 
         <h4>@album.Titulo <small class="text-muted">(@album.FechaLanzamiento.ToShortDateString())</small></h4>
 
-        @if (!album.Canciones.Any())
+        @if (!album.AlbumCanciones.Any())
         {
             <p class="text-muted">Este álbum no tiene canciones.</p>
         }
         else
         {
             <ul class="list-unstyled">
-                @foreach (var c in album.Canciones)
+                @foreach (var c in album.AlbumCanciones)
                 {
                     <li class="mb-3">
-                        <strong>@c.Titulo</strong> - @c.Genero <br />
-                        <audio controls src="@c.Url" style="width: 100%;"></audio>
+                        <strong>@c.Cancion.Titulo</strong> - @c.Cancion.Genero <br />
+                        <audio controls src="@c.Cancion.Url" style="width: 100%;"></audio>
                     </li>
                 }
             </ul>

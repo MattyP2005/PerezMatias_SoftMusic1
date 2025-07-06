@@ -3,11 +3,33 @@
 <h2>Mis Álbumes</h2>
 <a href="/Album/Crear" class="btn btn-primary mb-3">Nuevo Álbum</a>
 
-@foreach (var a in Model)
+@foreach (var album in Model)
 {
-    <div class="card mb-2 p-3">
-        <h4>@a.Titulo (@a.FechaLanzamiento.ToShortDateString())</h4>
-        <a href="/Album/Ver/@a.Id" class="btn btn-outline-success btn-sm">Ver</a>
-        <a href="/Album/AgregarCanciones/@a.Id" class="btn btn-outline-primary btn-sm">Agregar canciones</a>
+    <div class="card mb-4 shadow-sm p-3">
+        <h4 class="text-primary">@album.Titulo <small class="text-muted">(@album.FechaLanzamiento.ToShortDateString())</small></h4>
+
+        @if (!album.AlbumCanciones.Any())
+        {
+            <p class="text-muted">Este álbum no tiene canciones.</p>
+        }
+        else
+        {
+            <ul class="list-unstyled">
+                @foreach (var ac in album.AlbumCanciones)
+                {
+                    var cancion = ac.Cancion;
+                    var artista = cancion?.Artista;
+
+                    <li class="mb-3">
+                        <strong>@cancion.Titulo</strong> - @cancion.Genero <br />
+                        <small class="text-muted">por @artista?.Nombre</small><br />
+                        <audio controls src="@cancion.Url" class="w-100"></audio>
+                    </li>
+                }
+            </ul>
+        }
+        <a asp-action="AgregarCanciones" asp-route-id="@album.Id" class="btn btn-outline-primary btn-sm">
+            ➕ Agregar canciones
+        </a>
     </div>
 }

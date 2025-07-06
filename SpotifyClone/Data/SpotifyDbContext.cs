@@ -78,11 +78,21 @@ namespace SpotifyClone.Data
                 .OnDelete(DeleteBehavior.Restrict);
 
             // Cancion → Álbum
-            modelBuilder.Entity<Cancion>()
-                .HasOne(c => c.Album)
-                .WithMany(a => a.Canciones)
-                .HasForeignKey(c => c.AlbumId)
+            modelBuilder.Entity<AlbumCancion>()
+                .HasKey(ac => new { ac.AlbumId, ac.CancionId });
+
+            modelBuilder.Entity<AlbumCancion>()
+                .HasOne(ac => ac.Album)
+                .WithMany(a => a.AlbumCanciones)
+                .HasForeignKey(ac => ac.AlbumId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<AlbumCancion>()
+                .HasOne(ac => ac.Cancion)
+                .WithMany(c => c.AlbumCanciones)
+                .HasForeignKey(ac => ac.CancionId)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
 
         public DbSet<Historial> Historiales { get; set; }
@@ -92,5 +102,7 @@ namespace SpotifyClone.Data
         public DbSet<FormaPago> FormasPago { get; set; }
 
         public DbSet<Artista> Artistas { get; set; }
+
+        public DbSet<AlbumCancion> AlbumCanciones { get; set; }
     }
 }
