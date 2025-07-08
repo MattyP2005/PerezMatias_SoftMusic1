@@ -74,8 +74,7 @@ namespace SpotifyClone.Data
             modelBuilder.Entity<Album>()
                 .HasOne(a => a.Artista)
                 .WithMany()
-                .HasForeignKey(a => a.ArtistaId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .HasForeignKey(a => a.ArtistaId);
 
             // Cancion → Álbum
             modelBuilder.Entity<AlbumCancion>()

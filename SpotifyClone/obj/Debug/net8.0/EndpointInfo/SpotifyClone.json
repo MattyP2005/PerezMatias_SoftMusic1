@@ -5,6 +5,131 @@
     "version": "v1"
   },
   "paths": {
+    "/api/AlbumApi": {
+      "get": {
+        "tags": [
+          "AlbumApi"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "AlbumApi"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAlbumDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAlbumDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAlbumDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/AlbumApi/{id}": {
+      "get": {
+        "tags": [
+          "AlbumApi"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "AlbumApi"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAlbumDTO"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAlbumDTO"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAlbumDTO"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "AlbumApi"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/api/ArtistaApi": {
       "get": {
         "tags": [
@@ -51,12 +176,6 @@
                       "$ref": "#/components/schemas/Cancion"
                     }
                   },
-                  "Albums": {
-                    "type": "array",
-                    "items": {
-                      "$ref": "#/components/schemas/Album"
-                    }
-                  },
                   "portada": {
                     "type": "string",
                     "format": "binary"
@@ -80,9 +199,6 @@
                   "style": "form"
                 },
                 "Canciones": {
-                  "style": "form"
-                },
-                "Albums": {
                   "style": "form"
                 },
                 "portada": {
@@ -604,7 +720,7 @@
             "format": "int32"
           },
           "artista": {
-            "$ref": "#/components/schemas/Artista"
+            "$ref": "#/components/schemas/Usuario"
           },
           "albumCanciones": {
             "type": "array",
@@ -666,13 +782,6 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/Cancion"
-            },
-            "nullable": true
-          },
-          "albums": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Album"
             },
             "nullable": true
           }
@@ -741,6 +850,19 @@
               "$ref": "#/components/schemas/PlaylistCancion"
             },
             "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CreateAlbumDTO": {
+        "required": [
+          "titulo"
+        ],
+        "type": "object",
+        "properties": {
+          "titulo": {
+            "minLength": 1,
+            "type": "string"
           }
         },
         "additionalProperties": false

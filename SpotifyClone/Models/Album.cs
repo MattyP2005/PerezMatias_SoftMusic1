@@ -15,7 +15,7 @@ namespace SpotifyClone.Models
 
         // Relación con Artista
         public int ArtistaId { get; set; }
-        public Artista Artista { get; set; }
+        public Usuario Artista { get; set; }
 
         // Canciones que contiene el álbum
         public ICollection<AlbumCancion> AlbumCanciones { get; set; }

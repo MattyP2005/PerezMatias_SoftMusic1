@@ -90,7 +90,6 @@ namespace SpotifyClone.Controllers.Api
         {
             var artista = _context.Artistas
                 .Include(a => a.Canciones)
-                .Include(a => a.Albums)
                 .FirstOrDefault(a => a.Id == id);
 
             if (artista == null)
@@ -115,10 +114,7 @@ namespace SpotifyClone.Controllers.Api
 
             _context.Canciones.RemoveRange(artista.Canciones);
 
-            // 2. Eliminar álbumes
-            _context.Albums.RemoveRange(artista.Albums);
-
-            // 3. Eliminar portada del artista (si existe)
+            // 2. Eliminar portada del artista (si existe)
             if (!string.IsNullOrWhiteSpace(artista.PortadaUrl))
             {
                 var rutaPortada = Path.Combine(_env.WebRootPath, artista.PortadaUrl.TrimStart('/'));
@@ -126,7 +122,7 @@ namespace SpotifyClone.Controllers.Api
                     System.IO.File.Delete(rutaPortada);
             }
 
-            // 4. Eliminar artista
+            // 3. Eliminar artista
             _context.Artistas.Remove(artista);
 
             _context.SaveChanges();

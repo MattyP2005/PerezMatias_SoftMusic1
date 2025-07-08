@@ -1,5 +1,84 @@
 [
   {
+    "ContainingType": "SpotifyClone.Controllers.Api.AlbumApiController",
+    "Method": "GetAll",
+    "RelativePath": "api/AlbumApi",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.AlbumApiController",
+    "Method": "Create",
+    "RelativePath": "api/AlbumApi",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "dto",
+        "Type": "SpotifyClone.Models.DTOs.CreateAlbumDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.AlbumApiController",
+    "Method": "GetById",
+    "RelativePath": "api/AlbumApi/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.AlbumApiController",
+    "Method": "Update",
+    "RelativePath": "api/AlbumApi/{id}",
+    "HttpMethod": "PUT",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      },
+      {
+        "Name": "dto",
+        "Type": "SpotifyClone.Models.DTOs.CreateAlbumDTO",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "SpotifyClone.Controllers.Api.AlbumApiController",
+    "Method": "Delete",
+    "RelativePath": "api/AlbumApi/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "SpotifyClone.Controllers.Api.ArtistaApiController",
     "Method": "GetArtistas",
     "RelativePath": "api/ArtistaApi",
@@ -45,11 +124,6 @@
       {
         "Name": "Canciones",
         "Type": "System.Collections.Generic.ICollection\u00601[[SpotifyClone.Models.Cancion, SpotifyClone, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "Albums",
-        "Type": "System.Collections.Generic.ICollection\u00601[[SpotifyClone.Models.Album, SpotifyClone, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
         "IsRequired": false
       },
       {

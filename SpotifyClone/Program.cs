@@ -50,7 +50,15 @@ namespace SpotifyClone
     });
             });
 
-
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy("AllowAll", policy =>
+                {
+                    policy.AllowAnyOrigin()
+                          .AllowAnyHeader()
+                          .AllowAnyMethod();
+                });
+            });
 
             var jwtSettings = builder.Configuration.GetSection("Jwt");
 
@@ -90,7 +98,7 @@ namespace SpotifyClone
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseCors("AllowAll");
             app.UseAuthentication();
 
             app.UseAuthorization();

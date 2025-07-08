@@ -33,9 +33,6 @@ namespace SpotifyClone.Migrations
                     b.Property<int>("ArtistaId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("ArtistaId1")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("FechaLanzamiento")
                         .HasColumnType("datetime2");
 
@@ -46,8 +43,6 @@ namespace SpotifyClone.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("ArtistaId");
-
-                    b.HasIndex("ArtistaId1");
 
                     b.ToTable("Albums");
                 });
@@ -287,15 +282,11 @@ namespace SpotifyClone.Migrations
 
             modelBuilder.Entity("SpotifyClone.Models.Album", b =>
                 {
-                    b.HasOne("SpotifyClone.Models.Artista", "Artista")
+                    b.HasOne("SpotifyClone.Models.Usuario", "Artista")
                         .WithMany()
                         .HasForeignKey("ArtistaId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("SpotifyClone.Models.Artista", null)
-                        .WithMany("Albums")
-                        .HasForeignKey("ArtistaId1");
 
                     b.Navigation("Artista");
                 });
@@ -427,8 +418,6 @@ namespace SpotifyClone.Migrations
 
             modelBuilder.Entity("SpotifyClone.Models.Artista", b =>
                 {
-                    b.Navigation("Albums");
-
                     b.Navigation("Canciones");
                 });
 
