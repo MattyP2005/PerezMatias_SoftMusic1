@@ -6,7 +6,7 @@ using SpotifyClone.Models;
 
 namespace SpotifyClone.Controllers
 {
-    [Authorize(Roles = "Artista,Admin")]
+    //[Authorize(Roles = "Artista,Admin")]
 
     public class CancionController : Controller
     {
@@ -17,6 +17,16 @@ namespace SpotifyClone.Controllers
         {
             _context = context;
             _env = env;
+        }
+
+        public IActionResult Index()
+        {
+            var canciones = _context.Canciones
+                .Include(c => c.Artista) // si tienes relación con Usuario
+                .OrderByDescending(c => c.FechaSubida)
+                .ToList();
+
+            return View(canciones);
         }
 
         // GET: Cancion
