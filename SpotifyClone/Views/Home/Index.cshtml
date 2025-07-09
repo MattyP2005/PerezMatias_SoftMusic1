@@ -7,37 +7,19 @@
 <!-- Álbumes -->
 <h2 class="text-primary mb-4">🎧 Álbumes Disponibles</h2>
 
-<div class="row">
+<div class="row row-cols-2 row-cols-md-5 g-4">
     @foreach (var album in Model.Albums)
     {
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 bg-dark text-white shadow-lg border-0 rounded-4">
-                @if (album.AlbumCanciones.Any() && album.AlbumCanciones.First().Cancion?.Artista?.PortadaUrl != null)
-                {
-                    <img src="@album.AlbumCanciones.First().Cancion.Artista.PortadaUrl" class="card-img-top rounded-top-4" style="height: 200px; object-fit: cover;" />
-                }
+        var portada = album.AlbumCanciones.FirstOrDefault()?.Cancion?.Artista?.PortadaUrl;
 
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title">@album.Titulo</h5>
-                    <p class="card-text text-muted">@album.FechaLanzamiento.ToShortDateString()</p>
-
-                    @if (!album.AlbumCanciones.Any())
-                    {
-                        <p class="text-muted">Este álbum no tiene canciones.</p>
-                    }
-                    else
-                    {
-                        <ul class="list-unstyled">
-                            @foreach (var c in album.AlbumCanciones)
-                            {
-                                <li class="mb-2">
-                                    <strong>@c.Cancion.Titulo</strong> - @c.Cancion.Genero <br />
-                                    <audio controls src="@c.Cancion.Url" class="w-100 mt-1"></audio>
-                                </li>
-                            }
-                        </ul>
-                    }
-                </div>
+        <div class="col">
+            <div class="text-center">
+                <a href="@Url.Action("Ver", "Album", new { id = album.Id })" class="text-decoration-none text-white">
+                    <div class="rounded shadow-sm overflow-hidden" style="aspect-ratio: 1 / 1;">
+                        <img src="@portada" class="w-100 h-100" style="object-fit: cover;" alt="Portada del álbum" />
+                    </div>
+                    <p class="mt-2 mb-0 fw-semibold text-white">@album.Titulo</p>
+                </a>
             </div>
         </div>
     }
@@ -46,34 +28,25 @@
 <hr class="my-5 border-light" />
 
 <!-- Playlists -->
-<h2 class="text-success mb-4">⭐ Playlists Públicas</h2>
+<h2 class="text-success mt-5 mb-4">⭐ Playlists Públicas</h2>
+<p class="text-muted">Total de playlists públicas: @Model.PlaylistsPublicas.Count()</p>
 
-<div class="row">
+<div class="row row-cols-2 row-cols-md-5 g-4">
     @foreach (var playlist in Model.PlaylistsPublicas)
     {
-        <div class="col-md-4 mb-4">
-            <div class="card bg-light shadow-sm border-0 h-100 rounded-4">
-                <div class="card-body d-flex flex-column">
-                    <h5 class="card-title text-dark">📀 @playlist.Nombre</h5>
+        <p class="text-warning small">🎵 Canciones: @playlist.Canciones.Count</p>
 
-                    @if (!playlist.Canciones.Any())
-                    {
-                        <p class="text-muted">Esta playlist está vacía.</p>
-                    }
-                    else
-                    {
-                        <ul class="list-unstyled">
-                            @foreach (var pc in playlist.Canciones)
-                            {
-                                <li class="mb-2">
-                                    <strong>@pc.Cancion.Titulo</strong> - @pc.Cancion.Genero <br />
-                                    <audio controls src="@pc.Cancion.Url" class="w-100 mt-1"></audio>
-                                </li>
-                            }
-                        </ul>
-                    }
-                </div>
-            </div>
+        var portada = playlist.Canciones.FirstOrDefault()?.Cancion?.Artista?.PortadaUrl;
+
+        <div class="col">
+             <div class="text-center">
+                  <a href="#" class="text-decoration-none text-white">
+                      <div class="rounded shadow-sm overflow-hidden" style="aspect-ratio: 1 / 1;">
+                            <img src="@portada" class="w-100 h-100" style="object-fit: cover;" alt="Portada de la playlist" />
+                      </div>
+                      <p class="mt-2 mb-0 fw-semibold text-white">@playlist.Nombre</p>
+                  </a>
+             </div>
         </div>
     }
 </div>
@@ -81,7 +54,7 @@
 <hr class="my-5 border-light" />
 
 <!-- Canciones Sueltas -->
-<h2 class="text-danger mb-4">🎶 Canciones Sueltas</h2>
+<h2 class="text-danger mt-5 mb-4">🎶 Canciones Sueltas</h2>
 
 @if (!Model.CancionesSueltas.Any())
 {
@@ -89,32 +62,27 @@
 }
 else
 {
-    <div class="row">
+    <div class="row row-cols-2 row-cols-md-5 g-4">
         @foreach (var c in Model.CancionesSueltas)
         {
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-lg h-100 bg-dark text-white border-0 rounded-4">
+            <div class="col">
+                <div class="card bg-dark text-white border-0 rounded shadow-sm h-100">
                     @if (!string.IsNullOrEmpty(c.Artista?.PortadaUrl))
                     {
-                        <img src="@c.Artista.PortadaUrl" class="card-img-top rounded-top-4" style="height: 200px; object-fit: cover;" />
+                        <div style="aspect-ratio: 1 / 1; overflow: hidden;">
+                            <img src="@c.Artista.PortadaUrl" class="w-100 h-100" style="object-fit: cover;" />
+                        </div>
                     }
 
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title text-info">@c.Titulo</h5>
-                        <p class="card-text">
-                            <strong>Género:</strong> @c.Genero <br />
-                            <strong>Artista:</strong> @c.Artista?.Nombre
-                        </p>
+                    <div class="card-body p-2 d-flex flex-column">
+                        <h6 class="card-title text-info mb-1">@c.Titulo</h6>
+                        <small class="text-light mb-2">@c.Artista?.Nombre</small>
 
-                        <audio controls src="@c.Url" class="w-100 mb-3"></audio>
+                        <audio controls src="@c.Url" class="w-100 mb-2"></audio>
 
                         <div class="d-flex justify-content-between mt-auto">
-                            <a href="@Url.Action("Descargar", "Cancion", new { id = c.Id })" class="btn btn-sm btn-success rounded-pill px-3">
-                                ⬇️ Descargar
-                            </a>
-                            <button class="btn btn-sm btn-outline-light rounded-pill px-3" onclick="copiarUrl('@c.Url')">
-                                🔗 Compartir
-                            </button>
+                            <a href="@Url.Action("Descargar", "Cancion", new { id = c.Id })" class="btn btn-sm btn-outline-success px-2 py-1">⬇️</a>
+                            <button class="btn btn-sm btn-outline-light px-2 py-1" onclick="copiarUrl('@c.Url')">🔗</button>
                         </div>
                     </div>
                 </div>
@@ -122,6 +90,7 @@ else
         }
     </div>
 }
+
 
 @section Scripts {
     <script>

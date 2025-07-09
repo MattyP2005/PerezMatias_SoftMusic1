@@ -97,17 +97,7 @@
     "Order": 0,
     "Parameters": [
       {
-        "Name": "Id",
-        "Type": "System.Int32",
-        "IsRequired": false
-      },
-      {
         "Name": "Nombre",
-        "Type": "System.String",
-        "IsRequired": false
-      },
-      {
-        "Name": "PortadaUrl",
         "Type": "System.String",
         "IsRequired": false
       },
@@ -117,17 +107,17 @@
         "IsRequired": false
       },
       {
+        "Name": "FechaNacimiento",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
         "Name": "Pais",
         "Type": "System.String",
         "IsRequired": false
       },
       {
-        "Name": "Canciones",
-        "Type": "System.Collections.Generic.ICollection\u00601[[SpotifyClone.Models.Cancion, SpotifyClone, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
-        "IsRequired": false
-      },
-      {
-        "Name": "portada",
+        "Name": "Portada",
         "Type": "Microsoft.AspNetCore.Http.IFormFile",
         "IsRequired": false
       }
@@ -164,9 +154,29 @@
         "IsRequired": true
       },
       {
-        "Name": "artista",
-        "Type": "SpotifyClone.Models.Artista",
-        "IsRequired": true
+        "Name": "Nombre",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Biografia",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "FechaNacimiento",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      },
+      {
+        "Name": "Pais",
+        "Type": "System.String",
+        "IsRequired": false
+      },
+      {
+        "Name": "Portada",
+        "Type": "Microsoft.AspNetCore.Http.IFormFile",
+        "IsRequired": false
       }
     ],
     "ReturnTypes": []

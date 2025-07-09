@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using SpotifyClone.Data;
 using SpotifyClone.Models;
 
 namespace SpotifyClone.Controllers
 {
-    [Authorize(Roles = "Artista,Admin")]
+    //[Authorize(Roles = "Artista,Admin")]
 
     public class ArtistaController : Controller
     {
@@ -17,6 +18,12 @@ namespace SpotifyClone.Controllers
         {
             _context = context;
             _env = env;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var artistas = await _context.Artistas.ToListAsync();
+            return View(artistas);
         }
 
         [HttpPost]

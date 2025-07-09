@@ -47,7 +47,8 @@ namespace SpotifyClone.Controllers
             {
                 Nombre = nombre,
                 UsuarioId = usuario.Id,
-                FechaCreacion = DateTime.UtcNow
+                FechaCreacion = DateTime.UtcNow,
+                EsPublica = true
             };
 
             _context.Playlists.Add(playlist);

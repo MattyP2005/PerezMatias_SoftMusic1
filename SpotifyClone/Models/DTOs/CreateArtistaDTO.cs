@@ -13,6 +13,6 @@ namespace SpotifyClone.Models.DTOs
         
         public string Pais { get; set; } 
         
-        public string ImagenUrl { get; set; }  // URL de la imagen del artista
+        public IFormFile Portada { get; set; }  // Subir imagen del artista
     }
 }

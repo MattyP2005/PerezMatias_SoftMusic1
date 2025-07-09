@@ -43,11 +43,18 @@ namespace SpotifyClone.Controllers.Api
 
         // POST: api/ArtistaApi
         [HttpPost]
-        public async Task<IActionResult> CrearArtista([FromForm] Artista artista, IFormFile portada)
+        public async Task<IActionResult> CrearArtista([FromForm] CreateArtistaDTO dto)
         {
-            if (portada != null)
+            var artista = new Artista
             {
-                var nombreArchivo = Guid.NewGuid().ToString() + Path.GetExtension(portada.FileName);
+                Nombre = dto.Nombre,
+                Biografia = dto.Biografia,
+                Pais = dto.Pais
+            };
+
+            if (dto.Portada != null)
+            {
+                var nombreArchivo = Guid.NewGuid().ToString() + Path.GetExtension(dto.Portada.FileName);
                 var rutaCarpeta = Path.Combine(_env.WebRootPath, "portadas");
 
                 if (!Directory.Exists(rutaCarpeta))
@@ -57,7 +64,7 @@ namespace SpotifyClone.Controllers.Api
 
                 using (var stream = new FileStream(rutaCompleta, FileMode.Create))
                 {
-                    await portada.CopyToAsync(stream);
+                    await dto.Portada.CopyToAsync(stream);
                 }
 
                 artista.PortadaUrl = "/portadas/" + nombreArchivo;
@@ -72,15 +79,39 @@ namespace SpotifyClone.Controllers.Api
 
         // PUT: api/ArtistaApi/5
         [HttpPut("{id}")]
-        public IActionResult EditarArtista(int id, [FromBody] Artista artista)
+        public async Task<IActionResult> EditarArtista(int id, [FromForm] CreateArtistaDTO dto)
         {
-            if (id != artista.Id)
-                return BadRequest();
+            var artista = await _context.Artistas.FindAsync(id);
+            if (artista == null)
+                return NotFound();
 
-            _context.Entry(artista).State = EntityState.Modified;
-            _context.SaveChanges();
+            artista.Nombre = dto.Nombre;
+            artista.Biografia = dto.Biografia;
+            artista.Pais = dto.Pais;
 
-            return NoContent();
+            if (dto.Portada != null)
+            {
+                if (!string.IsNullOrWhiteSpace(artista.PortadaUrl))
+                {
+                    var rutaVieja = Path.Combine(_env.WebRootPath, artista.PortadaUrl.TrimStart('/'));
+                    if (System.IO.File.Exists(rutaVieja))
+                        System.IO.File.Delete(rutaVieja);
+                }
+
+                var nombreArchivo = Guid.NewGuid().ToString() + Path.GetExtension(dto.Portada.FileName);
+                var rutaCompleta = Path.Combine(_env.WebRootPath, "portadas", nombreArchivo);
+
+                using (var stream = new FileStream(rutaCompleta, FileMode.Create))
+                {
+                    await dto.Portada.CopyToAsync(stream);
+                }
+
+                artista.PortadaUrl = "/portadas/" + nombreArchivo;
+            }
+
+            await _context.SaveChangesAsync();
+
+            return Ok(artista);
         }
 
         // DELETE: api/ArtistaApi/5
