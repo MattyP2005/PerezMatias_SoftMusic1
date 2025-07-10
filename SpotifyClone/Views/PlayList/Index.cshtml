@@ -12,7 +12,7 @@
 }
 else
 {
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
         @foreach (var playlist in Model)
         {
             var portadaArtista = playlist.Canciones?
@@ -20,25 +20,15 @@ else
             .FirstOrDefault(p => !string.IsNullOrEmpty(p)) ?? "/img/sin-portada.jpg";
 
             <div class="col">
-                <div class="card h-100 shadow-sm playlist-card position-relative">
-                    <img src="@portadaArtista" class="card-img-top" alt="Portada Playlist" style="height: 180px; object-fit: cover;" />
-                    <div class="card-body">
-                        <h5 class="card-title text-truncate">@playlist.Nombre</h5>
-                        <p class="card-text text-muted mb-1">
-                            @((playlist.Canciones?.Count ?? 0)) canción(es)
-                        </p>
-                        <a href="@Url.Action("Ver", "PlayList", new { id = playlist.Id })" class="stretched-link"></a>
-                        <a href="@Url.Action("Reproducir", "PlayList", new { id = playlist.Id })" class="btn btn-success btn-sm me-2">
-                            <i class="bi bi-play-fill"></i> Reproducir
+                <div class="card shadow-sm playlist-card text-center">
+                    <div class="img-wrapper bg-dark">
+                        <img src="@portadaArtista" alt="Portada Playlist" />
+                    </div>
+                    <div class="card-body py-3">
+                        <h6 class="card-title text-truncate mb-2">@playlist.Nombre</h6>
+                        <a href="@Url.Action("Ver", "PlayList", new { id = playlist.Id })" class="btn btn-sm btn-outline-primary">
+                            Ver
                         </a>
-                        <a href="@Url.Action("Editar", "Playlists", new { id = playlist.Id })" class="btn btn-primary btn-sm me-2">
-                            <i class="bi bi-pencil"></i> Editar
-                        </a>
-                        <form method="post" asp-action="Eliminar" asp-controller="Playlists" asp-route-id="@playlist.Id" class="d-inline" onsubmit="return confirm('¿Seguro que quieres eliminar esta playlist?');">
-                            <button type="submit" class="btn btn-danger btn-sm">
-                                <i class="bi bi-trash"></i> Eliminar
-                            </button>
-                        </form>
                     </div>
                 </div>
             </div>
@@ -47,9 +37,34 @@ else
 }
 
 <style>
-    .playlist-card:hover {
-        box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
-        transform: scale(1.03);
-        transition: all 0.3s ease-in-out;
+    .playlist-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
+    }
+
+        .playlist-card:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 12px rgba(0, 123, 255, 0.5);
+            z-index: 10;
+        }
+
+    .img-wrapper {
+        height: 160px;
+        background-color: #212529;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        border-bottom: 1px solid #ccc;
+    }
+
+        .img-wrapper img {
+            max-height: 100%;
+            max-width: 100%;
+            object-fit: contain;
+        }
+
+    .card-title {
+        font-weight: 600;
     }
 </style>

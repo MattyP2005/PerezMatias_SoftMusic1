@@ -46,6 +46,7 @@
             </div>
         </nav>
     </header>
+
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
@@ -57,9 +58,31 @@
             &copy; 2025 - SpotifyClone - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!-- 🎵 Barra de reproducción inferior -->
+    <div id="player-bar" class="bg-dark text-white d-flex align-items-center px-3 shadow-lg"
+         style="position: fixed; bottom: 0; left: 0; right: 0; height: 80px; z-index: 999; display: none;">
+        <img id="player-img" src="/img/sin-portada.jpg" alt="Portada"
+             style="width: 60px; height: 60px; object-fit: cover; border-radius: 8px; margin-right: 15px;">
+
+        <div class="me-4 overflow-hidden" style="max-width: 200px;">
+            <div id="player-title" class="fw-bold text-truncate">Título</div>
+            <div id="player-artist" class="small text-muted text-truncate">Artista</div>
+        </div>
+
+        <div class="d-flex align-items-center flex-grow-1 justify-content-center">
+            <button id="btn-prev" class="btn btn-outline-light btn-sm me-2">⏮️</button>
+            <button id="btn-play-pause" class="btn btn-outline-light btn-sm me-2">⏯️</button>
+            <button id="btn-next" class="btn btn-outline-light btn-sm">⏭️</button>
+        </div>
+
+        <audio id="player-audio" style="display:none;"></audio>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js" defer></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js" defer></script>
+    <script src="~/js/site.js" asp-append-version="true" defer></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 
     <script>
