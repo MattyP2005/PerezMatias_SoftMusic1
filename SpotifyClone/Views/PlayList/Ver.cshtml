@@ -1,52 +1,122 @@
 ﻿@model SpotifyClone.Models.Playlist
 
-<h2>@Model.Nombre</h2>
-
-@if (!Model.Canciones.Any())
-{
-    <p>Playlist vacía.</p>
+@{
+    ViewData["Title"] = "Detalles Playlist";
 }
-else
-{
-    <button id="btnReproducirTodo" class="btn btn-success mb-3">▶️ Reproducir todo</button>
 
-    <ul id="listaCanciones">
-        @for (int i = 0; i < Model.Canciones.Count; i++)
-        {
-            var cancion = Model.Canciones.ElementAt(i).Cancion;
-            <li class="mb-3" data-index="@i">
-                <strong>@cancion.Titulo</strong> - @cancion.Genero <br />
-                <audio controls src="@cancion.Url" preload="none" style="width: 100%;" data-index="@i"></audio>
-            </li>
+@{
+    var portadaArtista = Model.Canciones?
+        .Select(pc => pc.Cancion?.Artista?.PortadaUrl)
+        .FirstOrDefault(p => !string.IsNullOrEmpty(p)) ?? "/img/sin-portada.jpg";
+}
+
+<div class="bg-gradient-to-b from-gray-800 to-black text-white p-4 rounded mb-5 shadow">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div class="d-flex align-items-center">
+            <img src="@portadaArtista" alt="Portada del artista"
+                 class="card-img-top me-4 rounded shadow"
+                 style="width: 180px; height: 180px; object-fit: cover;" />
+            <div>
+                <p class="text-uppercase text-muted fw-bold mb-1">Playlist</p>
+                <h1 class="display-6 fw-bold">@Model.Nombre</h1>
+                <p class="text-muted mb-0">
+                    @Model.Usuario?.Email • @Model.Canciones?.Count canción(es) • creada el @Model.FechaCreacion.ToShortDateString()
+                </p>
+            </div>
+        </div>
+
+        <div>
+            <button class="btn btn-success me-2"
+                    onclick="reproducirPlaylist('@Model.Id', false)">
+                <i class="bi bi-play-fill"></i> Reproducir
+            </button>
+            <button class="btn btn-outline-light"
+                    onclick="reproducirPlaylist('@Model.Id', true)">
+                <i class="bi bi-shuffle"></i> Aleatorio
+            </button>
+        </div>
+    </div>
+
+    @if (Model.Canciones == null || !Model.Canciones.Any())
+    {
+        <p class="text-muted">No hay canciones en esta playlist.</p>
+    }
+    else
+    {
+        <table class="table table-dark table-hover align-middle rounded shadow-sm">
+            <thead class="text-muted border-bottom">
+                <tr>
+                    <th style="width: 40px;">#</th>
+                    <th>Título</th>
+                    <th>Artista</th>
+                    <th>Reproducciones</th>
+                    <th>Duración</th>
+                    <th>▶️</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var index = 1;
+                }
+                @foreach (var item in Model.Canciones)
+                {
+                    var cancion = item.Cancion;
+                    var artista = cancion?.Artista;
+
+                    <tr data-playlist="@Model.Id" data-url="@cancion?.Url">
+                        <td>@index</td>
+                        <td>@cancion?.Titulo</td>
+                        <td>@artista?.Nombre</td>
+                        <td>@cancion?.Reproducciones.ToString("N0")</td>
+                        <td>@(cancion?.Duracion != null ? $"{(int)cancion.Duracion.TotalMinutes}:{cancion.Duracion.Seconds:D2}" : "—")</td>
+                        <td>
+                            <audio controls src="@cancion?.Url" style="width: 130px;"></audio>
+                        </td>
+                    </tr>
+                    index++;
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<audio id="reproductorGlobal" controls style="width: 100%; display: none;"></audio>
+
+<script>
+    const reproductor = document.getElementById("reproductorGlobal");
+    let canciones = [];
+    let indice = 0;
+
+    function reproducirPlaylist(playlistId, aleatorio) {
+        const filas = document.querySelectorAll(`[data-playlist='${playlistId}']`);
+
+        canciones = Array.from(filas).map(f => f.dataset.url);
+        if (aleatorio) canciones = canciones.sort(() => Math.random() - 0.5);
+
+        if (canciones.length === 0) return;
+
+        indice = 0;
+        reproducirCancion(indice);
+        reproductor.style.display = "block";
+
+        // Limpiar resaltado anterior
+        document.querySelectorAll("tr.table-primary").forEach(r => r.classList.remove("table-primary"));
+        if (filas[indice]) filas[indice].classList.add("table-primary");
+    }
+
+    function reproducirCancion(i) {
+        reproductor.src = canciones[i];
+        reproductor.play();
+    }
+
+    reproductor.addEventListener("ended", () => {
+        indice++;
+        if (indice < canciones.length) {
+            reproducirCancion(indice);
+
+            const filas = document.querySelectorAll(`[data-playlist]`);
+            document.querySelectorAll("tr.table-primary").forEach(r => r.classList.remove("table-primary"));
+            if (filas[indice]) filas[indice].classList.add("table-primary");
         }
-    </ul>
-}
-
-@section Scripts {
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const audios = document.querySelectorAll("audio");
-
-            // Reproducir automáticamente la siguiente cuando termine
-            audios.forEach((audio, index) => {
-                audio.addEventListener("ended", () => {
-                    const next = audios[index + 1];
-                    if (next) {
-                        next.play();
-                        next.scrollIntoView({ behavior: "smooth", block: "center" });
-                    }
-                });
-            });
-
-            // ▶️ Botón: Reproducir todo desde el principio
-            const btn = document.getElementById("btnReproducirTodo");
-            if (btn && audios.length > 0) {
-                btn.addEventListener("click", function () {
-                    audios.forEach(a => a.pause()); // por si uno estaba sonando
-                    audios[0].play();
-                    audios[0].scrollIntoView({ behavior: "smooth", block: "center" });
-                });
-            }
-        });
-    </script>
-}
+    });
+</script>

@@ -1,24 +1,66 @@
 ﻿@model SpotifyClone.Models.Usuario
+
 @{
     ViewData["Title"] = "Mi Perfil";
 }
 
-<h2>@Model.Email</h2>
-<p>Rol: @Model.Rol</p>
-<p>Plan: @Model.Plan</p>
+<div class="container py-5">
+    <div class="row">
+        <!-- Sección perfil -->
+        <div class="col-md-4 text-center mb-4">
+            <img src="@(string.IsNullOrEmpty(Model.ImagenPerfilUrl) ? "/img/sin-perfil.png" : Model.ImagenPerfilUrl)"
+                 alt="Foto de perfil" class="rounded-circle shadow" style="width: 180px; height: 180px; object-fit: cover;" />
 
-<h4>Formas de Pago</h4>
-<ul>
-    @foreach (var f in Model.FormasPago)
-    {
-        <li>@f.Tipo - @f.Detalles</li>
-    }
-</ul>
+            <h2 class="mt-3 fw-bold">@(!string.IsNullOrEmpty(Model.Nombre) ? Model.Nombre : Model.Email)</h2>
+            <p class="text-muted">@Model.Email</p>
 
-<h4>Playlists</h4>
-<ul>
-    @foreach (var p in Model.Playlists)
-    {
-        <li>@p.Nombre (@p.FechaCreacion.ToShortDateString())</li>
-    }
-</ul>
+            <a href="@Url.Action("EditarPerfil", "Cuenta")" class="btn btn-primary mt-3 w-100">
+                <i class="bi bi-pencil-square me-2"></i> Editar Perfil
+            </a>
+        </div>
+
+        <!-- Sección contenido -->
+        <div class="col-md-8">
+            <h3 class="mb-4">Tus playlists</h3>
+            @if (Model.Playlists == null || !Model.Playlists.Any())
+            {
+                <p class="text-muted">No tienes playlists creadas aún.</p>
+            }
+            else
+            {
+                <ul class="list-group">
+                    @foreach (var playlist in Model.Playlists)
+                    {
+                        <li class="list-group-item">
+                            <a href="@Url.Action("Ver", "PlayList", new { id = playlist.Id })">
+                                @playlist.Nombre
+                            </a>
+                        </li>
+                    }
+                </ul>
+            }
+
+            <hr class="my-5" />
+
+            <h3 class="mb-4">Tu historial de reproducción</h3>
+            @if (Model.Historial == null || !Model.Historial.Any())
+            {
+                <p class="text-muted">No tienes reproducciones recientes.</p>
+            }
+            else
+            {
+                <ul class="list-group">
+                    @foreach (var item in Model.Historial.OrderByDescending(h => h.FechaHora).Take(10))
+                    {
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <strong>@item.Cancion?.Titulo</strong> - @item.Cancion?.Artista?.Nombre
+                            </div>
+                            <small class="text-muted">@item.FechaHora.ToString("g")</small>
+                        </li>
+                    }
+                </ul>
+            }
+        </div>
+    </div>
+</div>

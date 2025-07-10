@@ -1,49 +1,55 @@
 ﻿@model List<SpotifyClone.Models.Playlist>
 
-<h2>🎵 Playlists disponibles</h2>
+@{
+    ViewData["Title"] = "Playlists disponibles";
+}
 
-@foreach (var playlist in Model)
+<h2 class="mb-4 text-primary">🎧 Playlists disponibles</h2>
+
+@if (Model == null || !Model.Any())
 {
-    <div class="card mb-4 shadow-sm p-3">
-        <h4>@playlist.Nombre <small class="text-muted">(por @playlist.Usuario?.Email)</small></h4>
-        <p class="text-muted">Creada: @playlist.FechaCreacion.ToShortDateString()</p>
-
-        @if (playlist.Canciones == null || !playlist.Canciones.Any())
+    <p class="text-muted">No hay playlists disponibles aún.</p>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var playlist in Model)
         {
-            <p>No hay canciones en esta playlist.</p>
-        }
-        else
-        {
-            <ul class="list-unstyled">
-                @foreach (var item in playlist.Canciones)
-                {
-                    var cancion = item.Cancion;
-                    var artista = cancion?.Artista;
+            var portadaArtista = playlist.Canciones?
+            .Select(pc => pc.Cancion?.Artista?.PortadaUrl)
+            .FirstOrDefault(p => !string.IsNullOrEmpty(p)) ?? "/img/sin-portada.jpg";
 
-                    <li class="mb-4 p-3 bg-dark text-white rounded shadow-sm">
-                        <div class="row">
-                            <div class="col-md-4">
-                                @if (!string.IsNullOrEmpty(artista?.PortadaUrl))
-                                {
-                                    <img src="@artista.PortadaUrl" class="img-fluid rounded" alt="Portada del artista" style="max-height: 150px; object-fit: cover;" />
-                                }
-                                else
-                                {
-                                    <div class="text-center text-muted small">Sin imagen</div>
-                                }
-                            </div>
-                            <div class="col-md-8">
-                                <h5 class="text-info mb-1">@cancion?.Titulo</h5>
-                                <p class="mb-2">
-                                    <strong>Género:</strong> @cancion?.Genero <br />
-                                    <strong>Artista:</strong> @artista?.Nombre
-                                </p>
-                                <audio controls src="@cancion?.Url" class="w-100"></audio>
-                            </div>
-                        </div>
-                    </li>
-                }
-            </ul>
+            <div class="col">
+                <div class="card h-100 shadow-sm playlist-card position-relative">
+                    <img src="@portadaArtista" class="card-img-top" alt="Portada Playlist" style="height: 180px; object-fit: cover;" />
+                    <div class="card-body">
+                        <h5 class="card-title text-truncate">@playlist.Nombre</h5>
+                        <p class="card-text text-muted mb-1">
+                            @((playlist.Canciones?.Count ?? 0)) canción(es)
+                        </p>
+                        <a href="@Url.Action("Ver", "PlayList", new { id = playlist.Id })" class="stretched-link"></a>
+                        <a href="@Url.Action("Reproducir", "PlayList", new { id = playlist.Id })" class="btn btn-success btn-sm me-2">
+                            <i class="bi bi-play-fill"></i> Reproducir
+                        </a>
+                        <a href="@Url.Action("Editar", "Playlists", new { id = playlist.Id })" class="btn btn-primary btn-sm me-2">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+                        <form method="post" asp-action="Eliminar" asp-controller="Playlists" asp-route-id="@playlist.Id" class="d-inline" onsubmit="return confirm('¿Seguro que quieres eliminar esta playlist?');">
+                            <button type="submit" class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         }
     </div>
 }
+
+<style>
+    .playlist-card:hover {
+        box-shadow: 0 0 15px rgba(0, 123, 255, 0.6);
+        transform: scale(1.03);
+        transition: all 0.3s ease-in-out;
+    }
+</style>

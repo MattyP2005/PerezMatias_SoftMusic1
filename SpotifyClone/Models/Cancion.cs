@@ -29,6 +29,10 @@ namespace SpotifyClone.Models
 
         public Album Album { get; set; }
 
+        public int Reproducciones { get; set; } // para mostrar número de plays
+
+        public TimeSpan Duracion { get; set; }  // para mostrar duración bonita
+
         public ICollection<AlbumCancion> AlbumCanciones { get; set; }
 
         public ICollection<PlaylistCancion> PlaylistCanciones { get; set; }

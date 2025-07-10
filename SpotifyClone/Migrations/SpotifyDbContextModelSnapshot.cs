@@ -104,12 +104,18 @@ namespace SpotifyClone.Migrations
                     b.Property<int>("ArtistaId")
                         .HasColumnType("int");
 
+                    b.Property<TimeSpan>("Duracion")
+                        .HasColumnType("time");
+
                     b.Property<DateTime>("FechaSubida")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Genero")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Reproducciones")
+                        .HasColumnType("int");
 
                     b.Property<string>("Titulo")
                         .IsRequired()
@@ -260,6 +266,14 @@ namespace SpotifyClone.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ImagenPerfilUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nombre")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

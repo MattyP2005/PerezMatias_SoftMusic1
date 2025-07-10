@@ -5,7 +5,7 @@ using SpotifyClone.Data;
 
 namespace SpotifyClone.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class UsuarioController : Controller
     {
         private readonly SpotifyDbContext _context;
@@ -18,13 +18,23 @@ namespace SpotifyClone.Controllers
         public IActionResult MiPerfil()
         {
             var email = User.Identity?.Name;
+
+            if (string.IsNullOrEmpty(email))
+            {
+                return Unauthorized();
+            }
+
             var usuario = _context.Usuarios
                 .Include(u => u.Playlists)
-                .Include(u => u.FormasPago)
+                .Include(u => u.Historial)
+                    .ThenInclude(h => h.Cancion)
+                        .ThenInclude(c => c.Artista)
                 .FirstOrDefault(u => u.Email == email);
 
             if (usuario == null)
-                return Unauthorized();
+            {
+                return NotFound();
+            }
 
             return View(usuario);
         }

@@ -87,6 +87,20 @@ namespace SpotifyClone.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("SubirPortada", new { id });
-        }   
+        }
+
+        // GET: Artista/Detalles/5
+        [HttpPost]
+        public async Task<IActionResult> Detalles(int id)
+        {
+            var artista = await _context.Artistas
+                .Include(a => a.Canciones)
+                    .ThenInclude(c => c.AlbumCanciones)
+                        .ThenInclude(ac => ac.Album)
+                .FirstOrDefaultAsync(a => a.Id == id);
+            if (artista == null)
+                return NotFound();
+            return View(artista);
+        }
     }
 }

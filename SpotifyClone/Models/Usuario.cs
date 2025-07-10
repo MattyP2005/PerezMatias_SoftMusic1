@@ -18,6 +18,12 @@ namespace SpotifyClone.Models
         [Required]
         public string Plan { get; set; }    // "Free", "Personal", etc.
 
+        // Opcionales para el perfil
+        public string Nombre { get; set; }   // Nombre real o nickname
+
+        public string ImagenPerfilUrl { get; set; }  // URL o ruta relativa a la imagen de perfil
+
+
         public ICollection<Playlist> Playlists { get; set; }
 
         public ICollection<Historial> Historial { get; set; }

@@ -1,35 +1,66 @@
 ﻿@model List<SpotifyClone.Models.Album>
 
-<h2>Mis Álbumes</h2>
-<a href="/Album/Crear" class="btn btn-primary mb-3">Nuevo Álbum</a>
+@{
+    ViewData["Title"] = "Álbumes del Artista";
+}
 
-@foreach (var album in Model)
+<h2 class="mb-4 text-danger">🎶 Tus Álbumes</h2>
+
+<a asp-action="Crear" class="btn btn-success mb-4">
+    <i class="bi bi-plus-circle"></i> Crear nuevo álbum
+</a>
+
+@if (!Model.Any())
 {
-    <div class="card mb-4 shadow-sm p-3">
-        <h4 class="text-primary">@album.Titulo <small class="text-muted">(@album.FechaLanzamiento.ToShortDateString())</small></h4>
-
-        @if (!album.AlbumCanciones.Any())
+    <p class="text-muted">Aún no has creado ningún álbum.</p>
+}
+else
+{
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+        @foreach (var album in Model)
         {
-            <p class="text-muted">Este álbum no tiene canciones.</p>
-        }
-        else
-        {
-            <ul class="list-unstyled">
-                @foreach (var ac in album.AlbumCanciones)
-                {
-                    var cancion = ac.Cancion;
-                    var artista = cancion?.Artista;
+            <div class="col">
+                <div class="card h-100 shadow-sm album-card position-relative">
+                    <div class="bg-dark text-center text-white d-flex align-items-center justify-content-center" style="height: 180px;">
+                        <span style="font-size: 3.5rem;">💿</span>
+                    </div>
 
-                    <li class="mb-3">
-                        <strong>@cancion.Titulo</strong> - @cancion.Genero <br />
-                        <small class="text-muted">por @artista?.Nombre</small><br />
-                        <audio controls src="@cancion.Url" class="w-100"></audio>
-                    </li>
-                }
-            </ul>
+                    <div class="card-body">
+                        <h5 class="card-title text-truncate">@album.Titulo</h5>
+                        <p class="card-text text-muted mb-1">
+                            @album.AlbumCanciones?.Count canción(es) • @album.FechaLanzamiento.ToShortDateString()
+                        </p>
+
+                        <a href="@Url.Action("Ver", "Album", new { id = album.Id })" class="stretched-link"></a>
+
+                        <a href="@Url.Action("AgregarCanciones", "Album", new { id = album.Id })" class="btn btn-info btn-sm me-2">
+                            <i class="bi bi-music-note-list"></i> Añadir Canciones
+                        </a>
+
+                        <a href="@Url.Action("Editar", "Album", new { id = album.Id })" class="btn btn-primary btn-sm me-2">
+                            <i class="bi bi-pencil"></i> Editar
+                        </a>
+
+                        <form method="post" asp-action="Eliminar" asp-route-id="@album.Id" class="d-inline" onsubmit="return confirm('¿Eliminar este álbum?');">
+                            <button class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i> Eliminar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
         }
-        <a asp-action="AgregarCanciones" asp-route-id="@album.Id" class="btn btn-outline-primary btn-sm">
-            ➕ Agregar canciones
-        </a>
     </div>
 }
+
+<style>
+    .album-card:hover {
+        box-shadow: 0 0 15px rgba(255, 0, 128, 0.4);
+        transform: scale(1.03);
+        transition: all 0.3s ease-in-out;
+    }
+
+    .bi-disc {
+        font-size: 4rem;
+    }
+</style>

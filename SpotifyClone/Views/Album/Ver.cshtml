@@ -1,27 +1,116 @@
 ﻿@model SpotifyClone.Models.Album
 
 @{
-    ViewData["Title"] = "Detalle del Álbum";
+    ViewData["Title"] = "Álbum: " + Model.Titulo;
 }
 
-<h2>@Model.Titulo</h2>
+<div class="bg-gradient-to-b from-gray-800 to-black text-white p-4 rounded mb-5 shadow">
+    <div class="d-flex align-items-center justify-content-between mb-4">
+        <div class="d-flex align-items-center">
+            <div class="bg-dark text-center text-white d-flex align-items-center justify-content-center rounded me-4" style="width: 180px; height: 180px;">
+                <span style="font-size: 3.5rem;">💿</span>
+            </div>
+            <div>
+                <p class="text-uppercase text-muted fw-bold mb-1">Álbum</p>
+                <h1 class="display-6 fw-bold">@Model.Titulo</h1>
+                <p class="text-muted mb-0">
+                    @Model.AlbumCanciones?.Count canción(es) • Lanzado el @Model.FechaLanzamiento.ToShortDateString()
+                </p>
+            </div>
+        </div>
 
-<h3>Canciones en el álbum</h3>
+        <div>
+            <button class="btn btn-success me-2"
+                    onclick="reproducirAlbum('@Model.Id', false)">
+                <i class="bi bi-play-fill"></i> Reproducir
+            </button>
+            <button class="btn btn-outline-light"
+                    onclick="reproducirAlbum('@Model.Id', true)">
+                <i class="bi bi-shuffle"></i> Aleatorio
+            </button>
+        </div>
+    </div>
 
-@if (Model.AlbumCanciones != null && Model.AlbumCanciones.Any())
-{
-    <ul>
-        @foreach (var ac in Model.AlbumCanciones)
-        {
-            <li>
-                <strong>@ac.Cancion.Titulo</strong> - Artista: @ac.Cancion.Artista?.Nombre
-            </li>
+    @if (Model.AlbumCanciones == null || !Model.AlbumCanciones.Any())
+    {
+        <p class="text-muted">Este álbum aún no tiene canciones.</p>
+    }
+    else
+    {
+        <table class="table table-dark table-hover align-middle rounded shadow-sm">
+            <thead class="text-muted border-bottom">
+                <tr>
+                    <th style="width: 40px;">#</th>
+                    <th>Título</th>
+                    <th>Artista</th>
+                    <th>Reproducciones</th>
+                    <th>Duración</th>
+                    <th>▶️</th>
+                </tr>
+            </thead>
+            <tbody>
+                @{
+                    var index = 1;
+                }
+                @foreach (var ac in Model.AlbumCanciones)
+                {
+                    var cancion = ac.Cancion;
+                    var artista = cancion?.Artista;
+
+                    <tr data-album="@Model.Id" data-url="@cancion?.Url">
+                        <td>@index</td>
+                        <td>@cancion?.Titulo</td>
+                        <td>@artista?.Nombre</td>
+                        <td>@cancion?.Reproducciones.ToString("N0")</td>
+                        <td>@(cancion?.Duracion != null ? $"{(int)cancion.Duracion.TotalMinutes}:{cancion.Duracion.Seconds:D2}" : "—")</td>
+                        <td>
+                            <audio controls src="@cancion?.Url" style="width: 130px;"></audio>
+                        </td>
+                    </tr>
+                    index++;
+                }
+            </tbody>
+        </table>
+    }
+</div>
+
+<a href="@Url.Action("Index", "Album")" class="btn btn-secondary">Volver a los álbumes</a>
+
+<!-- Reproductor Global -->
+<audio id="reproductorGlobal" controls style="width: 100%; display: none;"></audio>
+
+<script>
+    const reproductor = document.getElementById("reproductorGlobal");
+    let canciones = [];
+    let indice = 0;
+
+    function reproducirAlbum(albumId, aleatorio) {
+        const filas = document.querySelectorAll(`[data-album='${albumId}']`);
+        canciones = Array.from(filas).map(f => f.dataset.url);
+
+        if (aleatorio) canciones = canciones.sort(() => Math.random() - 0.5);
+        if (canciones.length === 0) return;
+
+        indice = 0;
+        reproducirCancion(indice);
+        reproductor.style.display = "block";
+
+        document.querySelectorAll("tr.table-primary").forEach(r => r.classList.remove("table-primary"));
+        if (filas[indice]) filas[indice].classList.add("table-primary");
+    }
+
+    function reproducirCancion(i) {
+        reproductor.src = canciones[i];
+        reproductor.play();
+    }
+
+    reproductor.addEventListener("ended", () => {
+        indice++;
+        if (indice < canciones.length) {
+            reproducirCancion(indice);
+            const filas = document.querySelectorAll(`[data-album]`);
+            document.querySelectorAll("tr.table-primary").forEach(r => r.classList.remove("table-primary"));
+            if (filas[indice]) filas[indice].classList.add("table-primary");
         }
-    </ul>
-}
-else
-{
-    <p>No hay canciones asociadas a este álbum.</p>
-}
-
-<a href="@Url.Action("Index", "Album")" class="btn btn-secondary">Volver a la lista</a>
+    });
+</script>

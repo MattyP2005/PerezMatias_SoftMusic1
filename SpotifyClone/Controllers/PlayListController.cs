@@ -93,13 +93,18 @@ namespace SpotifyClone.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: Ver Playlist
-        public IActionResult Ver(int id)
+        // GET: Playlists/Detalles/5
+        public async Task<IActionResult> Ver(int? id)
         {
-            var playlist = _context.Playlists
+            if (id == null)
+                return NotFound();
+
+            var playlist = await _context.Playlists
+                .Include(p => p.Usuario)
                 .Include(p => p.Canciones)
-                .ThenInclude(pc => pc.Cancion)
-                .FirstOrDefault(p => p.Id == id);
+                    .ThenInclude(pc => pc.Cancion)
+                        .ThenInclude(c => c.Artista)
+                .FirstOrDefaultAsync(p => p.Id == id);
 
             if (playlist == null)
                 return NotFound();
