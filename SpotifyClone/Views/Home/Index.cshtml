@@ -92,7 +92,9 @@
 
 
                             <div class="d-flex justify-content-between mt-auto">
-                                <a href="@Url.Action("Descargar", "Cancion", new { id = c.Id })" class="btn btn-sm btn-outline-success">⬇️</a>
+                                <a href="@c.Url" download class="btn btn-sm btn-success rounded-pill px-3">
+                                    ⬇️ Descargar
+                                </a>
                                 <button class="btn btn-sm btn-outline-light" onclick="copiarUrl('@c.Url')">🔗</button>
                             </div>
                         </div>
