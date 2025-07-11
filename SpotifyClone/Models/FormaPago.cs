@@ -11,6 +11,7 @@ namespace SpotifyClone.Models
         public string Tipo { get; set; } // Ej: "Tarjeta", "PayPal", "Crédito"
 
         [Required]
+        [Display(Name = "Detalles de Pago")]
         public string Detalles { get; set; } // Ej: número enmascarado
 
         public DateTime FechaRegistro { get; set; }

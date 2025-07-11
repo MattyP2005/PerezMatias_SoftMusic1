@@ -1,0 +1,32 @@
+﻿@model SpotifyClone.Models.FormaPago
+
+@{
+    ViewData["Title"] = "Método de Pago";
+}
+
+<h2 class="text-danger">💳 Ingresar método de pago</h2>
+
+<form asp-action="MetodoPago" method="post">
+    <input type="hidden" asp-for="UsuarioId" />
+
+    <div class="mb-3">
+        <label asp-for="Tipo" class="form-label">Tipo de pago</label>
+        <select asp-for="Tipo" class="form-select">
+            <option value="Tarjeta">Tarjeta</option>
+            <option value="PayPal">PayPal</option>
+        </select>
+        <span asp-validation-for="Tipo" class="text-danger"></span>
+    </div>
+
+    <div class="mb-3">
+        <label asp-for="Detalles" class="form-label">Referencia</label>
+        <input asp-for="Detalles" class="form-control" placeholder="Ej: número de tarjeta o email PayPal" />
+        <span asp-validation-for="Detalles" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success">Finalizar Suscripción</button>
+</form>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

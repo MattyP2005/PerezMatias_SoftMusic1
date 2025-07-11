@@ -21,8 +21,9 @@ namespace SpotifyClone.Models
         // Opcionales para el perfil
         public string Nombre { get; set; }   // Nombre real o nickname
 
-        public string ImagenPerfilUrl { get; set; }  // URL o ruta relativa a la imagen de perfil
+        public string? ImagenPerfilUrl { get; set; }  // URL o ruta relativa a la imagen de perfil
 
+        public FormaPago FormaPago { get; set; }
 
         public ICollection<Playlist> Playlists { get; set; }
 

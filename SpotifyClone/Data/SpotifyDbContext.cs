@@ -103,5 +103,7 @@ namespace SpotifyClone.Data
         public DbSet<Artista> Artistas { get; set; }
 
         public DbSet<AlbumCancion> AlbumCanciones { get; set; }
+
+        public DbSet<Usuario> Suscripciones { get; set; }
     }
 }

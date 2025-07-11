@@ -105,7 +105,7 @@ namespace SpotifyClone
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Usuario}/{action=Registrar}/{id?}");
 
             app.Run();
         }
