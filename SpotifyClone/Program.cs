@@ -62,20 +62,11 @@ namespace SpotifyClone
 
             var jwtSettings = builder.Configuration.GetSection("Jwt");
 
-            builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-            .AddJwtBearer(options =>
-            {
-                options.TokenValidationParameters = new TokenValidationParameters
+            builder.Services.AddAuthentication("login")
+                .AddCookie("login", options =>
                 {
-                    ValidateIssuer = true,
-                    ValidateAudience = true,
-                    ValidateLifetime = true,
-                    ValidateIssuerSigningKey = true,
-                    ValidIssuer = builder.Configuration["Jwt:Issuer"],
-                    ValidAudience = builder.Configuration["Jwt:Audience"],
-                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
-                };
-            });
+                    options.LoginPath = "/Cuenta/Login";
+                });
 
             var app = builder.Build();
 
@@ -105,7 +96,7 @@ namespace SpotifyClone
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Usuario}/{action=Registrar}/{id?}");
+                pattern: "{controller=Usuario}/{action=Login}/{id?}");
 
             app.Run();
         }

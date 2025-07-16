@@ -91,10 +91,10 @@ a {
     text-decoration: none;
 }
 
-    a:hover {
-        text-decoration: underline;
-        color: #28A745;
-    }
+a:hover {
+    text-decoration: underline;
+    color: #28A745;
+}
 
 footer {
     background-color: #1C1C1C;
@@ -120,4 +120,9 @@ audio {
 .btn-outline-light:hover {
     background-color: #F2F2F2;
     color: #1C1C1C;
+}
+
+.input-corto {
+    max-width: 350px;
+    margin: 0 auto;
 }

@@ -5,89 +5,105 @@
 }
 
 <div class="container py-5">
-    <div class="row">
+    @* Mensaje de éxito si hay *@
+    @if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-success text-center fw-bold shadow-sm">
+            @TempData["Mensaje"]
+        </div>
+    }
+
+    <div class="row gx-5">
         <!-- Sección perfil -->
-        <div class="col-md-4 text-center mb-4">
-            <img src="@(string.IsNullOrEmpty(Model.ImagenPerfilUrl) ? "/img/sin-perfil.png" : Model.ImagenPerfilUrl)"
-                 alt="Foto de perfil" class="rounded-circle shadow" style="width: 180px; height: 180px; object-fit: cover;" />
+        <div class="col-lg-4 mb-5">
+            <div class="card shadow-sm rounded-4 p-4 text-center">
+                <img src="@(string.IsNullOrEmpty(Model.ImagenPerfilUrl) ? "/img/sin-perfil.png" : Model.ImagenPerfilUrl)"
+                     alt="Foto de perfil" class="rounded-circle mx-auto d-block shadow mb-3"
+                     style="width: 180px; height: 180px; object-fit: cover;" />
 
-            <h2 class="mt-3 fw-bold">@(!string.IsNullOrEmpty(Model.Nombre) ? Model.Nombre : Model.Email)</h2>
-            <p class="text-muted">@Model.Email</p>
+                <h2 class="fw-bold mb-1">@(!string.IsNullOrEmpty(Model.Nombre) ? Model.Nombre : Model.Email)</h2>
+                <p class="text-muted mb-3">@Model.Email</p>
 
-            <div class="mt-3">
-                <p>
-                    <strong>Plan actual:</strong>
-                    <span class="badge bg-@(Model.Plan == "Premium" ? "success" : "secondary")">@Model.Plan</span>
+                <div class="mb-3">
+                    <span class="badge fs-6 py-2 px-3
+                        @(Model.Plan.StartsWith("Premium") ? "bg-success" : "bg-secondary")">
+                        @Model.Plan
+                    </span>
+                </div>
 
+                <div class="d-grid gap-2 mb-3">
                     @if (Model.Plan == "Gratis")
                     {
-                        <a href="@Url.Action("CambiarPlan", "Usuario")" class="btn btn-sm btn-warning mt-2 w-100">
-                            <i class="bi bi-arrow-up-circle me-1"></i> Actualizar a Premium
+                        <a href="@Url.Action("CambiarPlan", "Usuario")" class="btn btn-warning btn-lg fw-semibold">
+                            <i class="bi bi-arrow-up-circle me-2"></i> Actualizar a Premium
                         </a>
                     }
                     else
                     {
-                        <a href="@Url.Action("CambiarPlan", "Usuario")" class="btn btn-sm btn-secondary mt-2 w-100">
-                            <i class="bi bi-arrow-down-circle me-1"></i> Cambiar a Gratis
+                        <a href="@Url.Action("CambiarPlan", "Usuario")" class="btn btn-outline-secondary btn-lg fw-semibold">
+                            <i class="bi bi-arrow-down-circle me-2"></i> Cambiar a Gratis
                         </a>
                     }
-                </p>
+                </div>
 
-                @if (Model.Plan == "Premium" && Model.FormaPago != null)
+                @if (Model.Plan.StartsWith("Premium") && Model.FormaPago != null)
                 {
                     <hr />
-                    <p><strong>Método de pago:</strong> @Model.FormaPago.Tipo</p>
+                    <h5 class="text-success mb-2">Método de pago</h5>
+                    <p class="mb-1"><strong>Tipo:</strong> @Model.FormaPago.Tipo</p>
                     <p><strong>Referencia:</strong> @Model.FormaPago.Detalles</p>
                 }
-            </div>
 
-            <a href="@Url.Action("EditarPerfil", "Cuenta")" class="btn btn-primary mt-3 w-100">
-                <i class="bi bi-pencil-square me-2"></i> Editar Perfil
-            </a>
+                <a href="@Url.Action("EditarPerfil", "Cuenta")" class="btn btn-primary btn-lg w-100 mt-4">
+                    <i class="bi bi-pencil-square me-2"></i> Editar Perfil
+                </a>
+            </div>
         </div>
 
         <!-- Sección contenido -->
-        <div class="col-md-8">
-            <h3 class="mb-4">Tus playlists</h3>
-            @if (Model.Playlists == null || !Model.Playlists.Any())
-            {
-                <p class="text-muted">No tienes playlists creadas aún.</p>
-            }
-            else
-            {
-                <ul class="list-group">
-                    @foreach (var playlist in Model.Playlists)
-                    {
-                        <li class="list-group-item">
-                            <a href="@Url.Action("Ver", "PlayList", new { id = playlist.Id })">
-                                @playlist.Nombre
+        <div class="col-lg-8">
+            <div class="mb-5">
+                <h3 class="mb-4 text-primary">🎧 Tus Playlists</h3>
+                @if (Model.Playlists == null || !Model.Playlists.Any())
+                {
+                    <p class="text-muted fst-italic">No tienes playlists creadas aún.</p>
+                }
+                else
+                {
+                    <div class="list-group shadow-sm rounded">
+                        @foreach (var playlist in Model.Playlists)
+                        {
+                            <a href="@Url.Action("Ver", "PlayList", new { id = playlist.Id })"
+                               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
+                                <span>@playlist.Nombre</span>
+                                <i class="bi bi-music-note-list"></i>
                             </a>
-                        </li>
-                    }
-                </ul>
-            }
+                        }
+                    </div>
+                }
+            </div>
 
-            <hr class="my-5" />
-
-            <h3 class="mb-4">Tu historial de reproducción</h3>
-            @if (Model.Historial == null || !Model.Historial.Any())
-            {
-                <p class="text-muted">No tienes reproducciones recientes.</p>
-            }
-            else
-            {
-                <ul class="list-group">
-                    @foreach (var item in Model.Historial.OrderByDescending(h => h.FechaHora).Take(10))
-                    {
-                        <li class="list-group-item d-flex justify-content-between align-items-center">
-                            <div>
-                                <strong>@item.Cancion?.Titulo</strong> - @item.Cancion?.Artista?.Nombre
-                            </div>
-                            <small class="text-muted">@item.FechaHora.ToString("g")</small>
-                        </li>
-                    }
-                </ul>
-            }
+            <div>
+                <h3 class="mb-4 text-primary">🎼 Historial de reproducción</h3>
+                @if (Model.Historial == null || !Model.Historial.Any())
+                {
+                    <p class="text-muted fst-italic">No tienes reproducciones recientes.</p>
+                }
+                else
+                {
+                    <ul class="list-group shadow-sm rounded">
+                        @foreach (var item in Model.Historial.OrderByDescending(h => h.FechaHora).Take(10))
+                        {
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <strong>@item.Cancion?.Titulo</strong> - @item.Cancion?.Artista?.Nombre
+                                </div>
+                                <small class="text-muted">@item.FechaHora.ToString("g")</small>
+                            </li>
+                        }
+                    </ul>
+                }
+            </div>
         </div>
     </div>
 </div>

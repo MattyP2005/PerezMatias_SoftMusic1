@@ -3,28 +3,8 @@
   "WorkspaceRootPath": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{E99180E8-E5F4-46E5-8C2D-0AE1CA3C6238}|SpotifyClone.csproj|c:\\important\\universidad\\3er nivel\\herramientas de programacion\\proyectofinal_spotifysimulator\\spotifyclone\\controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99180E8-E5F4-46E5-8C2D-0AE1CA3C6238}|SpotifyClone.csproj|solutionrelative:controllers\\usuariocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99180E8-E5F4-46E5-8C2D-0AE1CA3C6238}|SpotifyClone.csproj|c:\\important\\universidad\\3er nivel\\herramientas de programacion\\proyectofinal_spotifysimulator\\spotifyclone\\models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99180E8-E5F4-46E5-8C2D-0AE1CA3C6238}|SpotifyClone.csproj|solutionrelative:models\\usuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99180E8-E5F4-46E5-8C2D-0AE1CA3C6238}|SpotifyClone.csproj|c:\\important\\universidad\\3er nivel\\herramientas de programacion\\proyectofinal_spotifysimulator\\spotifyclone\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E99180E8-E5F4-46E5-8C2D-0AE1CA3C6238}|SpotifyClone.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99180E8-E5F4-46E5-8C2D-0AE1CA3C6238}|SpotifyClone.csproj|c:\\important\\universidad\\3er nivel\\herramientas de programacion\\proyectofinal_spotifysimulator\\spotifyclone\\data\\spotifydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{E99180E8-E5F4-46E5-8C2D-0AE1CA3C6238}|SpotifyClone.csproj|solutionrelative:data\\spotifydbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99180E8-E5F4-46E5-8C2D-0AE1CA3C6238}|SpotifyClone.csproj|c:\\important\\universidad\\3er nivel\\herramientas de programacion\\proyectofinal_spotifysimulator\\spotifyclone\\views\\cancion\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{E99180E8-E5F4-46E5-8C2D-0AE1CA3C6238}|SpotifyClone.csproj|solutionrelative:views\\cancion\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{E99180E8-E5F4-46E5-8C2D-0AE1CA3C6238}|SpotifyClone.csproj|c:\\important\\universidad\\3er nivel\\herramientas de programacion\\proyectofinal_spotifysimulator\\spotifyclone\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{E99180E8-E5F4-46E5-8C2D-0AE1CA3C6238}|SpotifyClone.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{E99180E8-E5F4-46E5-8C2D-0AE1CA3C6238}|SpotifyClone.csproj|c:\\important\\universidad\\3er nivel\\herramientas de programacion\\proyectofinal_spotifysimulator\\spotifyclone\\views\\usuario\\miperfil.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{E99180E8-E5F4-46E5-8C2D-0AE1CA3C6238}|SpotifyClone.csproj|solutionrelative:views\\usuario\\miperfil.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     }
   ],
   "DocumentGroupContainers": [
@@ -43,78 +23,15 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "UsuarioController.cs",
-              "DocumentMoniker": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\Controllers\\UsuarioController.cs",
-              "RelativeDocumentMoniker": "Controllers\\UsuarioController.cs",
-              "ToolTip": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\Controllers\\UsuarioController.cs",
-              "RelativeToolTip": "Controllers\\UsuarioController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T17:43:53.125Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Usuario.cs",
-              "DocumentMoniker": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\Models\\Usuario.cs",
-              "RelativeDocumentMoniker": "Models\\Usuario.cs",
-              "ToolTip": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\Models\\Usuario.cs",
-              "RelativeToolTip": "Models\\Usuario.cs",
-              "ViewState": "AgIAAAcAAAAAAAAAAAAYwBcAAAAWAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T17:08:59.011Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAEoAAABUAAAAAAAAAA==",
+              "Title": "MiPerfil.cshtml",
+              "DocumentMoniker": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\Views\\Usuario\\MiPerfil.cshtml",
+              "RelativeDocumentMoniker": "Views\\Usuario\\MiPerfil.cshtml",
+              "ToolTip": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\Views\\Usuario\\MiPerfil.cshtml",
+              "RelativeToolTip": "Views\\Usuario\\MiPerfil.cshtml",
+              "ViewState": "AgIAAFIAAAAAAAAAAAAiwGwAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-10T01:36:24.977Z",
+              "WhenOpened": "2025-07-16T00:53:45.439Z",
               "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "SpotifyDbContext.cs",
-              "DocumentMoniker": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\Data\\SpotifyDbContext.cs",
-              "RelativeDocumentMoniker": "Data\\SpotifyDbContext.cs",
-              "ToolTip": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\Data\\SpotifyDbContext.cs",
-              "RelativeToolTip": "Data\\SpotifyDbContext.cs",
-              "ViewState": "AgIAAFMAAAAAAAAAAAAswGoAAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-07-11T17:19:45.944Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\Views\\Cancion\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Cancion\\Index.cshtml",
-              "ToolTip": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\Views\\Cancion\\Index.cshtml",
-              "RelativeToolTip": "Views\\Cancion\\Index.cshtml",
-              "ViewState": "AgIAABUAAAAAAAAAAAAAACwAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-07-11T16:18:31.902Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "site.css",
-              "DocumentMoniker": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\wwwroot\\css\\site.css",
-              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
-              "ToolTip": "C:\\Important\\Universidad\\3er Nivel\\HERRAMIENTAS DE PROGRAMACION\\ProyectoFinal_SpotifySimulator\\SpotifyClone\\wwwroot\\css\\site.css",
-              "RelativeToolTip": "wwwroot\\css\\site.css",
-              "ViewState": "AgIAAGYAAAAAAAAAAAAAwHoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-07-10T20:44:58.01Z"
             }
           ]
         }

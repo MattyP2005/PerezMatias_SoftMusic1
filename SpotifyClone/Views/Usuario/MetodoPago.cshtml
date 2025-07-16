@@ -1,32 +1,58 @@
-﻿@model SpotifyClone.Models.FormaPago
+﻿@model SpotifyClone.Models.ViewModels.MetodoPagoViewModel
 
 @{
     ViewData["Title"] = "Método de Pago";
 }
 
-<h2 class="text-danger">💳 Ingresar método de pago</h2>
+<div class="container mt-5" style="max-width: 500px;">
+    <h2 class="text-center text-success mb-4">💳 Método de Pago Seguro</h2>
 
-<form asp-action="MetodoPago" method="post">
-    <input type="hidden" asp-for="UsuarioId" />
+    <form asp-action="MetodoPago" method="post" class="shadow p-4 rounded bg-light">
+        <input type="hidden" asp-for="UsuarioId" />
 
-    <div class="mb-3">
-        <label asp-for="Tipo" class="form-label">Tipo de pago</label>
-        <select asp-for="Tipo" class="form-select">
-            <option value="Tarjeta">Tarjeta</option>
-            <option value="PayPal">PayPal</option>
-        </select>
-        <span asp-validation-for="Tipo" class="text-danger"></span>
-    </div>
+        <div class="mb-3">
+            <label asp-for="TipoTarjeta" class="form-label">Tipo de tarjeta</label>
+            <select asp-for="TipoTarjeta" class="form-select">
+                <option value="">Seleccione</option>
+                <option>Visa</option>
+                <option>MasterCard</option>
+                <option>American Express</option>
+            </select>
+            <span asp-validation-for="TipoTarjeta" class="text-danger"></span>
+        </div>
 
-    <div class="mb-3">
-        <label asp-for="Detalles" class="form-label">Referencia</label>
-        <input asp-for="Detalles" class="form-control" placeholder="Ej: número de tarjeta o email PayPal" />
-        <span asp-validation-for="Detalles" class="text-danger"></span>
-    </div>
+        <div class="mb-3">
+            <label asp-for="NumeroTarjeta" class="form-label">Número de tarjeta</label>
+            <input asp-for="NumeroTarjeta" class="form-control" placeholder="**** **** **** 1234" maxlength="19" />
+            <span asp-validation-for="NumeroTarjeta" class="text-danger"></span>
+        </div>
 
-    <button type="submit" class="btn btn-success">Finalizar Suscripción</button>
-</form>
+        <div class="mb-3">
+            <label asp-for="NombreTitular" class="form-label">Nombre del titular</label>
+            <input asp-for="NombreTitular" class="form-control" placeholder="Nombre en la tarjeta" />
+            <span asp-validation-for="NombreTitular" class="text-danger"></span>
+        </div>
+
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <label asp-for="FechaExpiracion" class="form-label">Expira (MM/AA)</label>
+                <input asp-for="FechaExpiracion" class="form-control" placeholder="MM/AA" maxlength="5" />
+                <span asp-validation-for="FechaExpiracion" class="text-danger"></span>
+            </div>
+
+            <div class="col-md-6">
+                <label asp-for="CVV" class="form-label">CVV</label>
+                <input asp-for="CVV" class="form-control" maxlength="4" />
+                <span asp-validation-for="CVV" class="text-danger"></span>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-success w-100 py-2 fw-bold">Finalizar suscripción</button>
+    </form>
+</div>
 
 @section Scripts {
-    <partial name="_ValidationScriptsPartial" />
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
 }
