@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Mi Perfil";
+    var iniciales = string.Join("", Model.Nombre?.Split(' ').Select(s => s[0])).ToUpper();
 }
 
 <div class="container py-5">
@@ -17,9 +18,19 @@
         <!-- Sección perfil -->
         <div class="col-lg-4 mb-5">
             <div class="card shadow-sm rounded-4 p-4 text-center">
-                <img src="@(string.IsNullOrEmpty(Model.ImagenPerfilUrl) ? "/img/sin-perfil.png" : Model.ImagenPerfilUrl)"
-                     alt="Foto de perfil" class="rounded-circle mx-auto d-block shadow mb-3"
-                     style="width: 180px; height: 180px; object-fit: cover;" />
+                @if (string.IsNullOrEmpty(Model.ImagenPerfilUrl))
+                {
+                    <div class="rounded-circle bg-dark text-white d-flex align-items-center justify-content-center mx-auto shadow"
+                         style="width: 180px; height: 180px; font-size: 3rem;">
+                        @iniciales
+                    </div>
+                }
+                else
+                {
+                    <img src="@Model.ImagenPerfilUrl"
+                         alt="Foto de perfil" class="rounded-circle shadow"
+                         style="width: 180px; height: 180px; object-fit: cover;" />
+                }
 
                 <h2 class="fw-bold mb-1">@(!string.IsNullOrEmpty(Model.Nombre) ? Model.Nombre : Model.Email)</h2>
                 <p class="text-muted mb-3">@Model.Email</p>
@@ -54,8 +65,13 @@
                     <p><strong>Referencia:</strong> @Model.FormaPago.Detalles</p>
                 }
 
-                <a href="@Url.Action("EditarPerfil", "Cuenta")" class="btn btn-primary btn-lg w-100 mt-4">
+                <a href="@Url.Action("EditarPerfil", "Usuario")" class="btn btn-primary btn-lg w-100 mt-4">
                     <i class="bi bi-pencil-square me-2"></i> Editar Perfil
+                </a>
+
+                <a href="@Url.Action("EliminarCuenta", "Usuario")"
+                   class="btn btn-outline-danger btn-lg w-100 mt-3">
+                    <i class="bi bi-trash me-2"></i> Eliminar Cuenta
                 </a>
             </div>
         </div>
@@ -63,21 +79,26 @@
         <!-- Sección contenido -->
         <div class="col-lg-8">
             <div class="mb-5">
-                <h3 class="mb-4 text-primary">🎧 Tus Playlists</h3>
-                @if (Model.Playlists == null || !Model.Playlists.Any())
+                <h3 class="mb-4 text-primary">📀 Tus Álbumes</h3>
+                @if (Model.Albumes == null || !Model.Albumes.Any())
                 {
-                    <p class="text-muted fst-italic">No tienes playlists creadas aún.</p>
+                    <p class="text-muted fst-italic">No tienes álbumes aún.</p>
                 }
                 else
                 {
-                    <div class="list-group shadow-sm rounded">
-                        @foreach (var playlist in Model.Playlists)
+                    <div class="row row-cols-1 row-cols-md-2 g-3">
+                        @foreach (var album in Model.Albumes)
                         {
-                            <a href="@Url.Action("Ver", "PlayList", new { id = playlist.Id })"
-                               class="list-group-item list-group-item-action d-flex justify-content-between align-items-center">
-                                <span>@playlist.Nombre</span>
-                                <i class="bi bi-music-note-list"></i>
-                            </a>
+                            <div class="col">
+                                <div class="card shadow-sm h-100">
+                                    <div class="card-body">
+                                        <h5 class="card-title">@album.Titulo</h5>
+                                        <a href="@Url.Action("Ver", "Album", new { id = album.Id })" class="btn btn-outline-primary btn-sm w-100">
+                                            <i class="bi bi-music-note-beamed me-1"></i> Ver Álbum
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         }
                     </div>
                 }

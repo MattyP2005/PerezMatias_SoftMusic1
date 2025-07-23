@@ -24,7 +24,8 @@ namespace SpotifyClone.Controllers
                 .Include(p => p.Usuario)
                 .Include(p => p.Canciones)
                     .ThenInclude(pc => pc.Cancion)
-                        .ThenInclude(c => c.Artista) 
+                        .ThenInclude(c => c.Artista)
+                .Where(p => p.Usuario.Email == User.Identity.Name)
                 .ToList();
 
             return View(playlists);
@@ -33,15 +34,33 @@ namespace SpotifyClone.Controllers
         // GET: Crear Playlist
         public IActionResult Crear()
         {
+            var userEmail = User.Identity?.Name;
+            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == userEmail);
+
+            if (usuario == null)
+                return Unauthorized();
+
+            if (!usuario.Plan.StartsWith("Premium"))
+            {
+                TempData["Error"] = "Solo los usuarios con plan Premium pueden crear playlists.";
+                return RedirectToAction("Index");
+            }
+
             return View();
         }
 
         [HttpPost]
         public IActionResult Crear(string nombre)
         {
-            var email = User.Identity?.Name;
-            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == email);
+            var userEmail = User.Identity?.Name;
+            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == userEmail);
             if (usuario == null) return Unauthorized();
+
+            if (!usuario.Plan.StartsWith("Premium"))
+            {
+                TempData["Error"] = "Solo los usuarios con plan Premium pueden crear playlists.";
+                return RedirectToAction("Index");
+            }
 
             var playlist = new Playlist
             {

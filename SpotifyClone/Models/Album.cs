@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace SpotifyClone.Models
 {
@@ -15,6 +16,8 @@ namespace SpotifyClone.Models
 
         // Relación con Artista
         public int ArtistaId { get; set; }
+
+        [ForeignKey("ArtistaId")]
         public Usuario Artista { get; set; }
 
         // Canciones que contiene el álbum

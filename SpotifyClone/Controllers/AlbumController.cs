@@ -7,7 +7,7 @@ using SpotifyClone.Models.ViewModels;
 
 namespace SpotifyClone.Controllers
 {
-    //[Authorize(Roles = "Artista,Admin")]
+    [Authorize(Roles = "Artista,Admin")]
 
     public class AlbumController : Controller
     {
@@ -20,11 +20,14 @@ namespace SpotifyClone.Controllers
 
         public IActionResult Index()
         {
+            var userEmail = User.Identity?.Name;
+
             var albums = _context.Albums
                 .Include(a => a.AlbumCanciones)
                     .ThenInclude(ac => ac.Cancion)
-                        .ThenInclude(c => c.Artista) 
+                        .ThenInclude(c => c.Artista)
                 .Include(a => a.Artista)
+                .Where(a => a.Artista.Email == userEmail)
                 .ToList();
 
             return View(albums);
@@ -39,9 +42,9 @@ namespace SpotifyClone.Controllers
         [HttpPost]
         public IActionResult Crear(string titulo, DateTime fechaLanzamiento)
         {
-            var email = User.Identity?.Name;
-            var artista = _context.Usuarios.FirstOrDefault(u => u.Email == email);
-            if (artista == null) return Unauthorized();
+            var userEmail = User.Identity?.Name;
+            var artista = _context.Usuarios.FirstOrDefault(u => u.Email == userEmail);
+            if (artista == null || artista.Rol != "Artista") return Unauthorized();
 
             var album = new Album
             {
@@ -58,11 +61,13 @@ namespace SpotifyClone.Controllers
 
         public IActionResult Ver(int id)
         {
+            var userEmail = User.Identity?.Name;
             var album = _context.Albums
                 .Include(a => a.AlbumCanciones)
-                .ThenInclude(ac => ac.Cancion)
-                    .ThenInclude(c => c.Artista)
-                .FirstOrDefault(a => a.Id == id);
+                    .ThenInclude(ac => ac.Cancion)
+                        .ThenInclude(c => c.Artista)
+                .Include(a => a.Artista)
+                .FirstOrDefault(a => a.Id == id && a.Artista.Email == userEmail);
 
             if (album == null)
                 return NotFound();
@@ -73,10 +78,17 @@ namespace SpotifyClone.Controllers
         // GET: Album/AgregarCanciones/5
         public IActionResult AgregarCanciones(int id)
         {
-            var album = _context.Albums.Find(id);
-            if (album == null) return NotFound();
+            var userEmail = User.Identity?.Name;
+            var album = _context.Albums
+                .Include(a => a.Artista)
+                .FirstOrDefault(a => a.Id == id && a.Artista.Email == userEmail);
 
-            var canciones = _context.Canciones.ToList();
+            if (album == null)
+                return NotFound();
+
+            var canciones = _context.Canciones
+                .Where(c => c.Artista.Email == userEmail)
+                .ToList();
 
             var viewModel = new AgregarCancionAlbumViewModel
             {
@@ -97,9 +109,11 @@ namespace SpotifyClone.Controllers
         [HttpPost]
         public IActionResult AgregarCanciones(AgregarCancionAlbumViewModel model)
         {
+            var userEmail = User.Identity?.Name;
             var album = _context.Albums
+                .Include(a => a.Artista)
                 .Include(a => a.AlbumCanciones)
-                .FirstOrDefault(a => a.Id == model.AlbumId);
+                .FirstOrDefault(a => a.Id == model.AlbumId && a.Artista.Email == userEmail);
 
             if (album == null) return NotFound();
 

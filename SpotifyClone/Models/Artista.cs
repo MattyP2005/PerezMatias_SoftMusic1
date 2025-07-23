@@ -19,5 +19,6 @@ namespace SpotifyClone.Models
         // Relación: un artista puede subir muchas canciones
         public ICollection<Cancion> Canciones { get; set; }
 
+        public string? Email { get; set; }
     }
 }

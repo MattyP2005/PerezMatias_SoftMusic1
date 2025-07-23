@@ -28,7 +28,7 @@ namespace SpotifyClone.Controllers
 
         // Procesa el inicio de sesión
         [HttpPost]
-        public IActionResult Login(LoginViewModel model)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
             if (!ModelState.IsValid)
                 return View(model);
@@ -47,11 +47,12 @@ namespace SpotifyClone.Controllers
             {
                 new Claim(ClaimTypes.Name, usuario.Email),
                 new Claim("Rol", usuario.Rol),
+                new Claim(ClaimTypes.Role, usuario.Rol),
                 new Claim("Plan", usuario.Plan)
             };
 
             var identity = new ClaimsIdentity(claims, "login");
-            HttpContext.SignInAsync(new ClaimsPrincipal(identity));
+            await HttpContext.SignInAsync(new ClaimsPrincipal(identity));
 
             return RedirectToAction("Index", "Home");
         }
@@ -121,7 +122,12 @@ namespace SpotifyClone.Controllers
             usuario.Plan = "Premium-" + model.SubPlan;
             _context.SaveChanges();
 
-            return RedirectToAction("MetodoPago", "Usuario", new { id = usuario.Id });
+            // Guardamos info en TempData para mostrarla en la vista de pago
+            TempData["SubPlanInfo"] = $"Premium - {model.SubPlan} (${(model.SubPlan == "Personal" ? "9.99" : 
+                model.SubPlan == "Familiar" ? "3.5" : 
+                model.SubPlan == "Empresarial" ? "35" : "0")}/mes)";
+
+            return RedirectToAction("MetodoPago", "Usuario", new { id = usuario.Id});
         }
 
         // Vista de métodos de pago
@@ -173,7 +179,7 @@ namespace SpotifyClone.Controllers
         }
 
         // Vista de perfil del usuario
-        //[Authorize(Roles = "Usuario,Admin,Artista")]
+        [Authorize(Roles = "Usuario,Admin,Artista")]
         public IActionResult MiPerfil()
         {
             var email = User.Identity?.Name;
@@ -183,7 +189,7 @@ namespace SpotifyClone.Controllers
 
             var usuario = _context.Usuarios
                 .Include(u => u.FormaPago)
-                .Include(u => u.Playlists)
+                .Include(u => u.Albumes)
                 .Include(u => u.Historial)
                     .ThenInclude(h => h.Cancion)
                         .ThenInclude(c => c.Artista)
@@ -227,5 +233,131 @@ namespace SpotifyClone.Controllers
             }
         }
 
+        // Editar perfil del usuario
+        [HttpGet]
+        public IActionResult EditarPerfil()
+        {
+            var email = User.Identity?.Name;
+
+            if (string.IsNullOrEmpty(email))
+                return Unauthorized();
+
+            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == email);
+            if (usuario == null)
+                return NotFound();
+
+            var model = new EditarPerfilViewModel
+            {
+                Id = usuario.Id,
+                Nombre = usuario.Nombre,
+                ImagenPerfilUrl = usuario.ImagenPerfilUrl
+            };
+
+            return View(model); 
+        }
+
+        // Procesa la edición del perfil
+        [HttpPost]
+        public async Task<IActionResult> EditarPerfil(EditarPerfilViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            var email = User.Identity?.Name;
+            var usuario = _context.Usuarios.FirstOrDefault(u => u.Email == email);
+
+            if (usuario == null)
+                return NotFound();
+
+            usuario.Nombre = model.Nombre;
+
+            // Eliminar imagen si se marca la casilla
+            if (model.EliminarImagen && !string.IsNullOrEmpty(usuario.ImagenPerfilUrl))
+            {
+                var rutaImagen = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", usuario.ImagenPerfilUrl.TrimStart('/'));
+                if (System.IO.File.Exists(rutaImagen))
+                    System.IO.File.Delete(rutaImagen);
+
+                usuario.ImagenPerfilUrl = null;
+            }
+
+            // Subir nueva imagen
+            if (model.ImagenPerfil != null && model.ImagenPerfil.Length > 0)
+            {
+                var carpeta = "perfiles";
+                var extension = Path.GetExtension(model.ImagenPerfil.FileName);
+                var nombreArchivo = Guid.NewGuid().ToString() + extension;
+                var ruta = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", carpeta, nombreArchivo);
+
+                using (var stream = new FileStream(ruta, FileMode.Create))
+                {
+                    await model.ImagenPerfil.CopyToAsync(stream);
+                }
+
+                usuario.ImagenPerfilUrl = "/" + carpeta + "/" + nombreArchivo;
+            }
+
+            _context.SaveChanges();
+            TempData["Mensaje"] = "Perfil actualizado correctamente";
+
+            return RedirectToAction("MiPerfil");
+        }
+
+        // Eliminar cuenta del usuario
+        [Authorize(Roles = "Usuario,Admin,Artista")]
+        [HttpGet]
+        public IActionResult EliminarCuenta()
+        {
+            return View();
+        }
+
+        // Procesa la eliminación de la cuenta
+        [Authorize(Roles = "Usuario,Admin,Artista")]
+        [HttpPost]
+        public async Task<IActionResult> EliminarCuenta(string motivo)
+        {
+            var email = User.Identity?.Name;
+            var usuario = _context.Usuarios
+                .Include(u => u.FormaPago)
+                .Include(u => u.Historial)
+                .Include(u => u.Playlists)
+                .Include(u => u.Albumes)
+                .FirstOrDefault(u => u.Email == email);
+
+            if (usuario == null)
+                return NotFound();
+
+            // Eliminar forma de pago
+            if (usuario.FormaPago != null && usuario.FormaPago.Id > 0)
+            {
+                _context.FormasPago.Remove(usuario.FormaPago);
+            }
+
+            // Eliminar historial
+            if (usuario.Historial != null && usuario.Historial.Any())
+            {
+                _context.Historiales.RemoveRange(usuario.Historial);
+            }
+
+            // Eliminar playlists
+            if (usuario.Playlists != null && usuario.Playlists.Any())
+            {
+                _context.Playlists.RemoveRange(usuario.Playlists);
+            }
+
+            // Eliminar álbumes (si el usuario es artista o crea álbumes)
+            if (usuario.Albumes != null && usuario.Albumes.Any())
+            {
+                _context.Albums.RemoveRange(usuario.Albumes);
+            }
+
+            // Finalmente, eliminar el usuario
+            _context.Usuarios.Remove(usuario);
+            await _context.SaveChangesAsync();
+
+            await HttpContext.SignOutAsync();
+            TempData["MensajeEliminacion"] = "Tu cuenta fue eliminada con éxito.";
+            return RedirectToAction("Login");
+        }
     }
 }

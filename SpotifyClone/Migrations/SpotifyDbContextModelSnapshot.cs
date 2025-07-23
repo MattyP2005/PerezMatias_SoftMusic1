@@ -40,9 +40,14 @@ namespace SpotifyClone.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UsuarioId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ArtistaId");
+
+                    b.HasIndex("UsuarioId");
 
                     b.ToTable("Albums");
                 });
@@ -72,6 +77,9 @@ namespace SpotifyClone.Migrations
 
                     b.Property<string>("Biografia")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nombre")
@@ -308,6 +316,10 @@ namespace SpotifyClone.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("SpotifyClone.Models.Usuario", null)
+                        .WithMany("Albumes")
+                        .HasForeignKey("UsuarioId");
+
                     b.Navigation("Artista");
                 });
 
@@ -459,6 +471,8 @@ namespace SpotifyClone.Migrations
 
             modelBuilder.Entity("SpotifyClone.Models.Usuario", b =>
                 {
+                    b.Navigation("Albumes");
+
                     b.Navigation("FormaPago")
                         .IsRequired();
 

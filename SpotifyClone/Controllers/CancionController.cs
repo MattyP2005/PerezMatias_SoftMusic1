@@ -6,7 +6,7 @@ using SpotifyClone.Models;
 
 namespace SpotifyClone.Controllers
 {
-    //[Authorize(Roles = "Artista,Admin")]
+    [Authorize(Roles = "Artista,Admin")]
 
     public class CancionController : Controller
     {
@@ -21,8 +21,10 @@ namespace SpotifyClone.Controllers
 
         public IActionResult Index()
         {
+            var userEmail = User.Identity?.Name;
             var canciones = _context.Canciones
-                .Include(c => c.Artista) // si tienes relación con Usuario
+                .Include(c => c.Artista) // relación con Usuario
+                .Where(c => c.Artista.Email == userEmail)
                 .OrderByDescending(c => c.FechaSubida)
                 .ToList();
 
@@ -33,10 +35,9 @@ namespace SpotifyClone.Controllers
         [Authorize(Roles = "Artista,Admin")]
         public IActionResult MisCanciones()
         {
-            var email = User.Identity?.Name;
+            var userEmail = User.Identity?.Name;
             var usuario = _context.Usuarios
-                .Include(u => u.Rol) // opcional
-                .FirstOrDefault(u => u.Email == email);
+                .FirstOrDefault(u => u.Email == userEmail);
 
             if (usuario == null)
                 return Unauthorized();

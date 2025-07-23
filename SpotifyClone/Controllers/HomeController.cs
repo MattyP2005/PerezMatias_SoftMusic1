@@ -16,11 +16,6 @@ namespace SpotifyClone.Controllers
 
         public IActionResult Index()
         {
-            var cancionesSueltas = _context.Canciones
-                .Include(c => c.Artista)
-                .Where(c => !_context.AlbumCanciones.Any(ac => ac.CancionId == c.Id))
-                .ToList();
-
             var model = new HomeViewModel
             {
                 Albums = _context.Albums
@@ -36,7 +31,12 @@ namespace SpotifyClone.Controllers
                             .ThenInclude(c => c.Artista)
                     .ToList(),
 
-                CancionesSueltas = cancionesSueltas
+                CancionesSueltas = _context.Canciones
+                    .Include(c => c.Artista)
+                    .Where(c => !c.AlbumCanciones.Any())
+                    .OrderByDescending(c => c.FechaSubida)
+                    .Take(20) // Limitar a las 20 canciones más recientes
+                    .ToList(),
             };
 
             return View(model);

@@ -76,6 +76,7 @@ wwwroot\lib\jquery\dist\jquery.js
 wwwroot\lib\jquery\dist\jquery.min.js
 wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
+wwwroot\perfiles\4d2b4d4a-38ec-4a32-bb28-7f36a0c416f0.png
 wwwroot\portadas\6899c957-24a4-47af-8f3d-b30b29e4b3ed.jpg
 wwwroot\portadas\6ae575d1-342d-4c08-aba2-40c29f525dd3.jpg
 wwwroot\portadas\AlexPonce.jpg

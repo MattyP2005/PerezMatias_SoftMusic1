@@ -293,4 +293,8 @@ C:\Important\Universidad\3er Nivel\HERRAMIENTAS DE PROGRAMACION\ProyectoFinal_Sp
 C:\Important\Universidad\3er Nivel\HERRAMIENTAS DE PROGRAMACION\ProyectoFinal_SpotifySimulator\SpotifyClone\obj\Debug\net8.0\SpotifyClone.pdb
 C:\Important\Universidad\3er Nivel\HERRAMIENTAS DE PROGRAMACION\ProyectoFinal_SpotifySimulator\SpotifyClone\obj\Debug\net8.0\SpotifyClone.genruntimeconfig.cache
 C:\Important\Universidad\3er Nivel\HERRAMIENTAS DE PROGRAMACION\ProyectoFinal_SpotifySimulator\SpotifyClone\obj\Debug\net8.0\ref\SpotifyClone.dll
+C:\Important\Universidad\3er Nivel\HERRAMIENTAS DE PROGRAMACION\ProyectoFinal_SpotifySimulator\SpotifyClone\obj\Debug\net8.0\rpswa.dswa.cache.json
+C:\Important\Universidad\3er Nivel\HERRAMIENTAS DE PROGRAMACION\ProyectoFinal_SpotifySimulator\SpotifyClone\obj\Debug\net8.0\rjimswa.dswa.cache.json
+C:\Important\Universidad\3er Nivel\HERRAMIENTAS DE PROGRAMACION\ProyectoFinal_SpotifySimulator\SpotifyClone\obj\Debug\net8.0\rjsmrazor.dswa.cache.json
+C:\Important\Universidad\3er Nivel\HERRAMIENTAS DE PROGRAMACION\ProyectoFinal_SpotifySimulator\SpotifyClone\obj\Debug\net8.0\rjsmcshtml.dswa.cache.json
 C:\Important\Universidad\3er Nivel\HERRAMIENTAS DE PROGRAMACION\ProyectoFinal_SpotifySimulator\SpotifyClone\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
