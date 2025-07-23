@@ -17,6 +17,12 @@ namespace SpotifyClone
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromMinutes(30);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
+            });
 
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
@@ -91,7 +97,7 @@ namespace SpotifyClone
             app.UseRouting();
             app.UseCors("AllowAll");
             app.UseAuthentication();
-
+            app.UseSession();
             app.UseAuthorization();
 
             app.MapControllerRoute(

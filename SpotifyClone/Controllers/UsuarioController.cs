@@ -359,5 +359,13 @@ namespace SpotifyClone.Controllers
             TempData["MensajeEliminacion"] = "Tu cuenta fue eliminada con éxito.";
             return RedirectToAction("Login");
         }
+
+        // Cerrar sesión (opcional, si no se usa Identity)
+        [HttpPost]
+        public IActionResult CerrarSesion()
+        {
+            HttpContext.Session.Clear(); // Elimina todos los datos de sesión
+            return RedirectToAction("Login", "Usuario");
+        }
     }
 }

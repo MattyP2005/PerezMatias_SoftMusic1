@@ -32,6 +32,5 @@ namespace SpotifyClone.Models
         public ICollection<FormaPago> FormasPago { get; set; }
 
         public List<Album> Albumes { get; set; }
-
     }
 }

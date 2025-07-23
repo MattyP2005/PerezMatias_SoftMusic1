@@ -1,3 +1,9 @@
+wwwroot\audio\DosMilAlgo.mp3
+wwwroot\audio\ElUltimoBeso.mp3
+wwwroot\audio\Traicion.mp3
+wwwroot\portadas\AlexPonce.jpg
+wwwroot\portadas\Mora.jpg
+wwwroot\portadas\Morat.jpg
 wwwroot\audio\Amorfoda.mp3
 wwwroot\audio\Aurora.mp3
 wwwroot\audio\BaileInolvidable.mp3
@@ -5,16 +11,13 @@ wwwroot\audio\Bandida.mp3
 wwwroot\audio\CerrandoCiclos.mp3
 wwwroot\audio\DariaTodo.mp3
 wwwroot\audio\DomingoDeBajon.mp3
-wwwroot\audio\DosMilAlgo.mp3
 wwwroot\audio\Droga.mp3
 wwwroot\audio\EclipseSolar.mp3
-wwwroot\audio\ElUltimoBeso.mp3
 wwwroot\audio\LaSinSentimientos.mp3
 wwwroot\audio\MeTocaAMi.mp3
 wwwroot\audio\MilVidas.mp3
 wwwroot\audio\Plan.mp3
 wwwroot\audio\SoyPeor.mp3
-wwwroot\audio\Traicion.mp3
 wwwroot\audio\VuelvoATi.mp3
 wwwroot\css\site.css
 wwwroot\favicon.ico
@@ -79,10 +82,7 @@ wwwroot\lib\jquery\LICENSE.txt
 wwwroot\perfiles\4d2b4d4a-38ec-4a32-bb28-7f36a0c416f0.png
 wwwroot\portadas\6899c957-24a4-47af-8f3d-b30b29e4b3ed.jpg
 wwwroot\portadas\6ae575d1-342d-4c08-aba2-40c29f525dd3.jpg
-wwwroot\portadas\AlexPonce.jpg
 wwwroot\portadas\BadBunny.jpg
 wwwroot\portadas\bdac5700-d277-4bba-ac04-0236b2bb8d4f.jpg
 wwwroot\portadas\f63f07ac-c551-4d70-be7b-9ad674f5b6ef.jpg
-wwwroot\portadas\Mora.jpg
-wwwroot\portadas\Morat.jpg
 wwwroot\SoftMusic.png
