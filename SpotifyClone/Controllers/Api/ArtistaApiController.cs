@@ -1,9 +1,7 @@
-﻿using System.Collections.Generic;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SpotifyClone.Data;
 using SpotifyClone.Models;
-using System.Linq;
 using SpotifyClone.Models.DTOs;
 using Microsoft.AspNetCore.Authorization;
 
